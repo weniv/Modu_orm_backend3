@@ -1,0 +1,12 @@
+<h1>blog</h1>
+<main>
+    {% for i in posts %}
+    <a href="http://localhost:8000/blog/{{i.id}}/">
+        <section>
+            <h2>{{i.title}}</h2>
+            <p>{{i.contents}}</p>
+            <p>{{i.author}}</p>
+        </section>
+    </a>
+    {% endfor %}
+</main>

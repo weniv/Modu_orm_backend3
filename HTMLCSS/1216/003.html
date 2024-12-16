@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>목록태그</title>
+    </head>
+    <body>
+        <!-- 순서가 있는 목록(개발 순서) -->
+        <ol>
+            <li>웹 서비스 기획</li>
+            <li>웹 디자인</li>
+            <li>프론트엔드 개발 & 백엔드 개발</li>
+            <li>배포</li>
+        </ol>
+
+        <!-- 순서가 없는 목록. 페이지 내의 메뉴, 내비게이션에 많이 사용됨 -->
+        <ul>
+            <li>라이캣</li>
+            <li>로지</li>
+            <li>지지</li>
+        </ul>
+
+        <!-- li 태그는 ul과 ol태그의 자식요소. 단독으로 사용 불가능 -->
+        <!-- 잘못된 예시 1 -->
+        <div>
+            <li>자식요소</li>
+        </div>
+
+        <!-- 잘못된 예시 2 -->
+        <ul>
+            <p></p>
+            <li></li>
+        </ul>
+
+        <!-- 잘못된 예시 3 -->
+        <ul>
+            <!-- 같은 위상의 아이템이 아닌 것 -->
+            <li>위니브 캐릭터</li>
+            <li>라이캣</li>
+            <li>로지</li>
+            <li>지지</li>
+        </ul>
+
+        <!-- 옳은 예시 -->
+        <ul>
+            <li>
+                <p></p>
+            </li>
+        </ul>
+
+        <!-- 옳은 예시, 중첩 가능 -->
+        <ul>
+            <li>
+                <ul>
+                    <li></li>
+                </ul>
+            </li>
+        </ul>
+    </body>
+</html>

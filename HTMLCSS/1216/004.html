@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Media와 div, span</title>
+    </head>
+    <body>
+        <img src="https://i.namu.wiki/i/WGsJjdq_YZ55OqLwDcVy03tPUDeuy2bFGjbv7hGdqeTxhugt9oQVd9skQTplZArzk64Id35mmLbkbcMwWEo2-g.webp" alt="뉴진스" />
+
+        <!-- 대체텍스트가 중복인 경우 alt값 비워두기 -->
+        <p>뉴진스 사진</p>
+        <img src="https://i.namu.wiki/i/WGsJjdq_YZ55OqLwDcVy03tPUDeuy2bFGjbv7hGdqeTxhugt9oQVd9skQTplZArzk64Id35mmLbkbcMwWEo2-g.webp" alt="" />
+
+        <!-- alt값 생략 시 스크린리더는 경로를 읽습니다 -->
+        <img src="https://i.namu.wiki/i/WGsJjdq_YZ55OqLwDcVy03tPUDeuy2bFGjbv7hGdqeTxhugt9oQVd9skQTplZArzk64Id35mmLbkbcMwWEo2-g.webp" />
+
+        <!-- 상대경로 -->
+        <!-- ./: 현재 폴더
+        ../: 상위 폴더
+        ./폴더명/: 하위 폴더 -->
+        <!-- 동일선상 -->
+        <img src="./zeezee.png" alt="사막여우 지지" />
+        <!-- 하위 -->
+        <img src="./img/zeezee.png" alt="사막여우 지지" />
+        <!-- 상위 -->
+        <img src="../zeezee.png" alt="사막여우 지지" />
+
+        <!-- 콘텐츠를 그룹핑하기 위한 태그. 시멘틱하지 않은 태그 -->
+        <div></div>
+
+        <!-- p태그는 문단, span 태그는 텍스트를 표현할 때 사용, 특정 부분에 강조를 할때 -->
+        <p>위니브는 <span>라이캣</span>과 <span>로지</span>와 <span>지지</span>가 있습니다.</p>
+    </body>
+</html>

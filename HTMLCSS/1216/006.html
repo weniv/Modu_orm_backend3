@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <form action="/login" method="post">
+            <label for="id">아이디</label>
+            <input type="text" id="id" name="id" />
+            <label for="password">비밀번호</label>
+            <input type="password" id="password" name="password" />
+
+            <input type="submit" value="로그인" />
+        </form>
+
+        <form action="">
+            <p>좋아하는 프로그래밍 언어</p>
+            <label for="python">Python</label>
+            <input type="checkbox" id="python" name="python" />
+            <label for="js">JavaScript</label>
+            <input type="checkbox" id="js" name="js" />
+            <label for="java">JAVA</label>
+            <input type="checkbox" id="java" name="java" />
+
+            <p>성별</p>
+            <label for="male">남</label>
+            <input type="radio" id="male" name="성별" />
+            <label for="female">여</label>
+            <input type="radio" id="female" name="성별" />
+
+            <div>
+                <input type="file" />
+            </div>
+        </form>
+    </body>
+</html>

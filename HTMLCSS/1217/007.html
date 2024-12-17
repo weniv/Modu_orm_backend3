@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <style>
+            html {
+                font-size: 10px;
+            }
+
+            .container {
+                font-size: 8px;
+            }
+
+            /* html(루트 요소)의 폰트 사이즈 기준
+            10px * 2 = 20px */
+            .item1 {
+                font-size: 2rem;
+            }
+
+            /* 부모요소의 폰트 사이즈 기준 */
+            /* 8px * 2 = 16px */
+            .item2 {
+                font-size: 2em;
+            }
+
+            /* 아래처럼 작업을 했다면 해당 코드 하나하나 다 찾아가서 수정해야함
+            -> 유지보수성을 위해 em, rem 단위를 적절하게 사용하는것이 중요 */
+            /* p {
+                font-size: 12px;
+            }
+
+            div {
+                font-size: 16px;
+            }
+
+            span {
+                font-size: 20px;
+            } */
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="item1">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel reprehenderit expedita quos exercitationem ea quia repellat adipisci obcaecati corporis praesentium blanditiis mollitia,
+                repudiandae soluta sunt ipsam fuga impedit perferendis atque?
+            </div>
+            <div class="item2">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel reprehenderit expedita quos exercitationem ea quia repellat adipisci obcaecati corporis praesentium blanditiis mollitia,
+                repudiandae soluta sunt ipsam fuga impedit perferendis atque?
+            </div>
+        </div>
+    </body>
+</html>

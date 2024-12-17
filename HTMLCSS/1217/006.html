@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=\, initial-scale=1.0" />
+        <title>Document</title>
+        <style>
+            .container {
+                width: 500px;
+                border: 1px solid black;
+            }
+
+            .percent {
+                background-color: aqua;
+                /* 부모 기준의 50%, 250px */
+                width: 50%;
+            }
+
+            .vw {
+                width: 50vw;
+            }
+
+            .vh {
+                height: 50vh;
+            }
+        </style>
+    </head>
+    <body>
+        <!-- 절대 길이 단위: px -->
+        <div class="container">
+            <strong>width: 500px;</strong>
+            <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure saepe alias atque ipsum nobis dolor maxime nesciunt at error necessitatibus architecto placeat voluptatum quo doloribus
+                vero, vitae magnam fuga reprehenderit.
+            </p>
+        </div>
+
+        <!-- 상대 길이 단위: % -->
+        <div class="container">
+            <strong>width: 500px;</strong>
+            <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure saepe alias atque ipsum nobis dolor maxime nesciunt at error necessitatibus architecto placeat voluptatum quo doloribus
+                vero, vitae magnam fuga reprehenderit.
+            </p>
+            <div class="percent">width: 250px;</div>
+        </div>
+
+        <!-- 상대 길이 단위: 뷰포트 단위 -->
+        <!-- viewport width -->
+        <div class="container vw">
+            <strong>width: 50vw;</strong>
+            <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure saepe alias atque ipsum nobis dolor maxime nesciunt at error necessitatibus architecto placeat voluptatum quo doloribus
+                vero, vitae magnam fuga reprehenderit.
+            </p>
+        </div>
+
+        <!-- viewport height -->
+        <div class="container vh">
+            <strong>height: 50vh;</strong>
+            <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure saepe alias atque ipsum nobis dolor maxime nesciunt at error necessitatibus architecto placeat voluptatum quo doloribus
+                vero, vitae magnam fuga reprehenderit.
+            </p>
+        </div>
+    </body>
+</html>

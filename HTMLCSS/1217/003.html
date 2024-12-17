@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <style>
+            /* 전체선택자. html을 포함한 모든 요소에 적용 */
+            * {
+                color: cadetblue;
+            }
+
+            /* 타입(태그) 선택자
+            html 파일 내 해당되는 모든 태그에 동일하게 적용 */
+            h1 {
+                background-color: aquamarine;
+            }
+
+            /* id 선택자 */
+            /* 해당 id값을 가진 유일한 요소에만 적용 */
+            #only-one {
+                background-color: blueviolet;
+            }
+
+            /* class 선택자 */
+            /* 해당 class명을 가진 모든 요소에 적용 */
+            .one {
+                background-color: orange;
+            }
+
+            .two {
+                text-decoration: underline;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>hello world</h1>
+        <h1>hello world</h1>
+        <h1>hello world</h1>
+        <h1>hello world</h1>
+        <!-- id의 값은 문서 내에서 유일 -->
+        <h2 id="only-one">hello world</h2>
+        <!-- 하나의 클래스에 여러 값 적용 가능. 동일한 클래스를 여러 요소에 적용가능 -->
+        <!-- 재사용성이 높아 css 작성할때 주로 사용되는 선택자 -->
+        <h2 class="one two">hello world</h2>
+        <h3 class="one">hello world</h3>
+        <h4 class="two">hello world</h4>
+        <h5>hello world</h5>
+        <h6>hello world</h6>
+
+        <!-- id, class명 작성 규칙
+        1. 숫자로 시작 금지
+        2. 하이픈, 언더바, 문자로만 시작 가능 -->
+    </body>
+</html>

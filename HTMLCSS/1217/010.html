@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <style>
+            p {
+                width: 300px;
+                border: 1px solid black;
+                /* 텍스트 가로 정렬 */
+                text-align: left;
+                text-align: right;
+                text-align: center;
+                /* 불규칙한 여백이 생기기 때문에 권장하지 않음 */
+                text-align: justify;
+            }
+
+            span {
+                font-size: 50px;
+                border: solid 1px black;
+            }
+
+            .child {
+                vertical-align: sub;
+                vertical-align: super;
+                vertical-align: baseline;
+                vertical-align: top;
+                vertical-align: middle;
+                vertical-align: bottom;
+            }
+        </style>
+    </head>
+    <body>
+        <p>
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aut, quia temporibus. Eligendi, possimus et! Exercitationem beatae non alias. Recusandae aut minus veniam dicta culpa ipsa at
+            aperiam possimus cupiditate ratione? Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aut, quia temporibus. Eligendi, possimus et! Exercitationem beatae non alias. Recusandae aut
+            minus veniam dicta culpa ipsa at aperiam possimus cupiditate ratione?
+        </p>
+
+        <span>부모<span class="child">자식</span></span>
+    </body>
+</html>

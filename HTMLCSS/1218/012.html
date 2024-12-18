@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <style>
+            /* p태그는 블록레벨요소. 전체 너비 차지. 줄바꿈 o */
+            p {
+                background-color: cadetblue;
+                display: inline;
+            }
+
+            span {
+                background-color: palegreen;
+                /* width: 100px; */
+                height: 100px;
+                /* margin-top: 300px; */
+                /* margin-bottom: 300px; */
+                display: block;
+            }
+
+            em {
+                background-color: coral;
+                width: 50px;
+                height: 100px;
+                margin-right: 5px;
+                /* margin-top: 300px; */
+                display: inline-block;
+            }
+
+            h1 {
+                display: none;
+            }
+        </style>
+    </head>
+    <body>
+        <p>p</p>
+        <p>p</p>
+        <p>p</p>
+        <p>p</p>
+        <span>span</span><span>span</span><span>span</span><span>span</span> <em>em</em><em>em</em><em>em</em><em>em</em>
+        <h1>Hello world</h1>
+    </body>
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <style>
+            span {
+                width: 50px;
+                height: 50px;
+                display: inline-block;
+                text-align: center;
+            }
+
+            span:nth-child(1) {
+                background-color: red;
+            }
+            span:nth-child(2) {
+                background-color: orange;
+            }
+            span:nth-child(3) {
+                background-color: yellow;
+            }
+            span:nth-child(4) {
+                background-color: yellowgreen;
+            }
+            span:nth-child(5) {
+                background-color: royalblue;
+            }
+            span:nth-child(6) {
+                background-color: blue;
+            }
+            span:nth-child(7) {
+                background-color: purple;
+            }
+
+            span:first-child,
+            span:last-child {
+                border: 10px solid black;
+            }
+
+            span:nth-child(even) {
+                color: white;
+            }
+
+            ul li::after {
+                content: "강사님";
+                font-size: 10px;
+                color: gray;
+            }
+
+            ul li::before {
+                content: "💙";
+            }
+
+            ul li:first-child::before {
+                content: "⭐️";
+            }
+            /* 
+            ul li:nth-child(2)::before {
+                content: "💙";
+            }
+
+            ul li:nth-child(3)::before {
+                content: "💙";
+            }
+
+            ul li:nth-child(4)::before {
+                content: "💙";
+            } */
+        </style>
+    </head>
+    <body>
+        <div>
+            <span>빨강</span>
+            <span>주황</span>
+            <span>노랑</span>
+            <span>초록</span>
+            <span>파랑</span>
+            <span>남색</span>
+            <span>보라</span>
+        </div>
+
+        <ul>
+            <li>지지</li>
+            <li>로지</li>
+            <li>라이캣</li>
+            <li>빙키</li>
+        </ul>
+    </body>
+</html>

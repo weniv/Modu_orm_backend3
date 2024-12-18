@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <style>
+            /* 첫번째 요소 선택 */
+            li:first-child {
+                color: red;
+            }
+
+            /* 마지막 요소 선택 */
+            li:last-child {
+                color: green;
+            }
+
+            ul:first-child {
+                border: solid 4px sandybrown;
+            }
+
+            /* body 태그의 직계 자식에는 :last-child 가상 클래스가 적용되지 않는다. */
+            ul:last-child {
+                border: solid 4px sandybrown;
+            }
+
+            /* 2번째 요소 선택 */
+            li:nth-child(2) {
+                color: aqua;
+            }
+
+            /* 홀수번째 요소 선택 */
+            li:nth-child(odd) {
+                background-color: lavender;
+            }
+
+            /* 짝수번째 요소 선택 */
+            li:nth-child(even) {
+                background-color: turquoise;
+            }
+
+            /* 수식을 넣어서 사용 가능 +, - 연산만 가능 */
+            li:nth-child(2n) {
+                background-color: blue;
+            }
+
+            li:nth-child(2n - 1) {
+                background-color: brown;
+            }
+        </style>
+    </head>
+    <body>
+        <ul>
+            <li>list</li>
+            <li>list</li>
+            <li>list</li>
+            <li>list</li>
+            <li>list</li>
+            <li>list</li>
+            <li>list</li>
+            <li>list</li>
+            <li>list</li>
+            <li>list</li>
+        </ul>
+        <ul>
+            <li>마지막 요소</li>
+        </ul>
+    </body>
+</html>

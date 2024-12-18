@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <style>
+            /* 클래스 + 요소 11 */
+            .ul a {
+                color: yellow;
+            }
+
+            /* 클래스 10 */
+            .click {
+                color: green;
+                background-color: black;
+            }
+
+            /* 요소 12 */
+            /* 요소선택자가 아무리 10개 이상이어도 클래스 선택자를 이길수 없음
+            12점이아니라 최대 9점이라고 생각해야함 */
+            html body main section article div ul li p strong span a {
+                background-color: purple;
+                color: blue;
+            }
+        </style>
+    </head>
+    <body>
+        <main>
+            <section>
+                <article>
+                    <div>
+                        <ul class="ul">
+                            <li>
+                                <p>
+                                    <strong>
+                                        <span>
+                                            <a href="" class="click"> 1. 이 글자의 색상은? 2. 배경색은? </a>
+                                            <!-- 정답 글자 yellow 배경 black -->
+                                        </span>
+                                    </strong>
+                                </p>
+                            </li>
+                        </ul>
+                    </div>
+                </article>
+            </section>
+        </main>
+    </body>
+</html>

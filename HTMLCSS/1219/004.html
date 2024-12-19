@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <style>
+            div {
+                position: relative;
+                height: 200px;
+                background-color: rgba(170, 0, 255, 0.6);
+                /* 부모 요소는 z 인덱스를 높여서 자식 앞으로 나올 수 없음 */
+                /* z-index: 400; */
+            }
+
+            p {
+                width: 100px;
+                height: 100px;
+                font-size: 32px;
+                border: solid 1px black;
+                position: absolute;
+            }
+
+            .box1 {
+                background-color: rgba(255, 0, 0, 0.6);
+                top: 50px;
+                left: 50px;
+                /* 자식요소는 z인덱스 값을 낮춰서 부모 뒤로 들어갈 수 있음 */
+                z-index: -300;
+            }
+
+            .box2 {
+                background-color: rgba(0, 255, 0, 0.6);
+                top: 100px;
+                left: 100px;
+                z-index: -200;
+            }
+
+            .box3 {
+                background-color: rgba(0, 0, 255, 0.6);
+                top: 150px;
+                left: 150px;
+                z-index: -100;
+            }
+        </style>
+    </head>
+    <body>
+        <div>
+            <p class="box1">box1</p>
+            <p class="box2">box2</p>
+            <p class="box3">box3</p>
+        </div>
+    </body>
+</html>

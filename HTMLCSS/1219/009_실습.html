@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Grid Layout</title>
+        <style>
+            * {
+                box-sizing: border-box;
+                color: white;
+            }
+
+            .container {
+                background-color: black;
+                width: 500px;
+                height: 400px;
+                padding: 10px;
+
+                display: grid;
+                gap: 10px;
+                grid-template-rows: 1fr 4fr 1fr;
+            }
+
+            header,
+            section,
+            aside,
+            footer {
+                background-color: coral;
+                display: grid;
+                justify-items: center;
+                align-items: center;
+            }
+
+            .main {
+                display: grid;
+                grid-template-columns: 5fr 2fr;
+                gap: 10px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <header>header</header>
+            <div class="main">
+                <section>section > article</section>
+                <aside>aside</aside>
+            </div>
+            <footer>footer</footer>
+        </div>
+    </body>
+</html>

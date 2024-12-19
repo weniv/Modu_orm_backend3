@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Layout</title>
+        <style>
+            * {
+                box-sizing: border-box;
+                color: white;
+            }
+
+            .container {
+                background-color: black;
+                width: 500px;
+                height: 400px;
+                padding: 10px;
+
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            header,
+            section,
+            aside,
+            footer {
+                background-color: coral;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .main {
+                display: flex;
+                gap: 10px;
+                height: 160px;
+            }
+
+            header,
+            footer {
+                height: 100px;
+            }
+
+            section {
+                width: 320px;
+            }
+
+            aside {
+                width: 150px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <header>header</header>
+            <div class="main">
+                <section>section > article</section>
+                <aside>aside</aside>
+            </div>
+            <footer>footer</footer>
+        </div>
+    </body>
+</html>

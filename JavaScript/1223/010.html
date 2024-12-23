@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=
+	, initial-scale=1.0"
+    />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // 불변성
+      let name = "weniv";
+      name[0] = "j"; // "jeniv"
+      name = "jeniv"; // 재할당
+      console.log(name);
+
+      // 문자열 만들기, 작은따옴표(''), 큰따옴표(""), 백틱(``)
+      let str1 = "문자열1";
+      let str2 = "문자열2";
+      let str3 = `문자열3`;
+
+      console.log(str1, str2, str3);
+
+      // 템플릿 리터럴: 줄바꿈, 변수 삽입 또는 연산 결과 포함
+      // 1. 줄바꿈
+      let message = `
+      안녕하세요, 저의 이름은 김유진입니다.
+      저의 캐릭터 이름은 빙키입니다.
+      `;
+      // \n안녕하세요, 저의 이름은 김유진입니다.\n저의 캐릭터 이름은 빙키입니다.
+      console.log(message);
+
+      // 따옴표 안에서 줄바꿈을 하면 syntax error 발생
+      //   let message2 = '안녕하세요
+      //   유진입니다.';
+      //      console.log(message2);
+
+      // 2. 변수 삽입
+      let name2 = "Binky";
+      let age = 20;
+      console.log(`제 이름은 ${name2}이고, 나이는 ${age}살입니다.`);
+
+      // 3. 연산 결과 포함
+      let num1 = 10;
+      let num2 = 20;
+      console.log(`두 수의 합은 ${num1 + num2}입니다.`);
+
+      console.log("==== 문자열 특징 ===");
+      // 문자열의 특징
+      // 1. 순서 - index
+      let text = "hello world";
+      console.log(text[0]); // h
+      console.log(text[6]); // w
+
+      // 2. 길이 - length 속성
+      // python -> len() 함수
+      console.log(text.length); // 11
+      console.log(text.length - 1);
+      console.log(text[text.length - 1]); // d
+      console.log(text[10]); // d
+
+      // 3. 불변성
+      // 어떠한 문자열 메서드도 문자열 자체를 변경하지 않는다.
+      // 새로운 문자열을 반환할 뿐이지, 원본 문자열은 변경되지 않습니다.
+      let weniv = "weniv";
+      console.log(weniv.toUpperCase()); // 대문자
+      console.log(weniv);
+
+      // 4. 더하기(+) 연산
+      console.log("제 회사의 이름은 " + weniv + "입니다.");
+      console.log(
+        "제 회사의 이름은 " + weniv + "입니다." ==
+          "제 회사의 이름은 weniv입니다."
+      );
+
+      // indexOf(검색할 문자, 검색을 시작할 인덱스 번호)
+      let text2 = "Next level 제껴라 제껴라 제껴라";
+      console.log(text2.indexOf("level")); // 5
+      console.log(text2.indexOf("제껴라")); // 11
+      console.log(text2.indexOf("제껴라", 16)); // 19
+
+      // 검색할 문자가 해당 문자열에 존재하지 않으면 -1을 반환
+      console.log(text2.indexOf("광야")); // -1
+
+      // replace(찾아야 하는 문자, 대체할 값)
+      let text3 = "제껴라 제껴라 제껴라 huh!";
+      console.log(text3.replace("제껴라", "check it out"));
+      // python: replace(문자, 대체, [횟수])
+      console.log(text3.replace(/제껴라/g, "check it out"));
+
+      // 검색어 하이라이팅
+      // <span class="highlight">검색어</span>
+
+      // slice(시작 인덱스, 종료 인덱스)
+      // 종료 인덱스의 경우 생략 -> 기본값: length
+      // 범위: 시작 인덱스 ~ (종료 인덱스 - 1)
+      let text4 = "중심을 잃고 목소리도 잃고";
+      console.log(text4.slice(7));
+      console.log(text4.slice(-3));
+      console.log(text4.slice(-3, 13));
+      console.log(text4.slice()); // 문자 그대로 복사
+
+      // split(구분자, [횟수]), 횟수: 쪼갤 횟수
+      const phone = "010-1234-5678";
+      console.log(phone.split("-"));
+      console.log(phone.split(""));
+      console.log(phone.split());
+      console.log(phone.split("", 3));
+
+      // toLowerCase(), toUpperCase()
+      const lunch = "Lunch";
+      console.log(lunch.toLowerCase());
+      console.log(lunch.toUpperCase());
+    </script>
+  </body>
+</html>

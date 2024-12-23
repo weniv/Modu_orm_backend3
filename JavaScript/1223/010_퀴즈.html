@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>퀴즈: 사용자의 아이디 가리기</title>
+  </head>
+  <body>
+    <h1>퀴즈: 사용자의 아이디 가리기 📧</h1>
+    <section>
+      <h2>[문제]</h2>
+      <ul>
+        <li>
+          이메일의 아이디(“@” 앞부분) 앞 2글자를 제외한 나머지를 * 로 가리고
+          도메인은 그대로 출력하세요.
+        </li>
+        <li>indexOf(), slice(), repeat()을 사용하세요!</li>
+      </ul>
+    </section>
+    <section>
+      <h2>[출력 결과]</h2>
+      <p>we***@email.com</p>
+    </section>
+    <section>
+      <h2>[힌트]</h2>
+      <p>*힌트는 필요할 경우 확인하시길 바랍니다!</p>
+    </section>
+    <script>
+      let email = "weniv@email.com";
+
+      // 승민님 코드
+      // email.slice(0, 2) + '*'.repeat(email.indexOf('@') - 2) + email.slice(email.indexOf('@'))
+
+      console.log(email.slice(0, 2)); // we
+      console.log("*".repeat(email.indexOf("@") - 2)); // "*".repeat(3) => ***
+      console.log(email.slice(email.indexOf("@"))); // @email.com
+
+      console.log(
+        email.slice(0, 2) +
+          "*".repeat(email.indexOf("@") - 2) +
+          email.slice(email.indexOf("@"))
+      );
+
+      // 호근님 코드
+      const atIndex = email.indexOf("@"); // 5
+      const userName = email.slice(0, atIndex);
+      const maskedName = userName.slice(0, 2) + "*".repeat(atIndex - 2); // 3
+      const domain = email.slice(atIndex);
+      const maskedEmail = maskedName + domain;
+      console.log(maskedEmail);
+
+      // 승범님 코드
+      // 아이디 추출
+      let id = email.slice(0, email.indexOf("@")); // weniv
+
+      let result =
+        id.slice(0, 2) +
+        "*".repeat(id.length - 2) +
+        email.slice(email.indexOf("@"));
+
+      console.log(result);
+
+      // 1. '@' 앞의 아이디를 추출합니다.
+      // 2. 아이디의 앞 2글자는 그대로 두고 나머지는 '*'로 가립니다.
+      // 3. 도메인 부분은 그대로 이어 붙입니다.
+
+      // '@'의 위치 찾기
+      //const atIndex = email.indexOf("@");
+
+      // 아이디와 도메인 나누기
+      //const id = email.slice(0, atIndex); // 아이디 부분
+      //const domain = email.slice(atIndex); // 도메인 부분
+
+      // 아이디 앞 2글자는 남기고 나머지는 '*'로 대체
+      //   const maskedId = id.slice(0, 2) + "*".repeat(id.length - 2);
+
+      // 최종 결과
+      //console.log(maskedId + domain);
+    </script>
+  </body>
+</html>

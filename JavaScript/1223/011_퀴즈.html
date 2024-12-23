@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      const expert = prompt("어떤 전문가가 되고 싶은가요?"); // 어떤 전문가가 되고 싶은가요?
+      const hours = Number(prompt("하루에 몇 시간 훈련할 건가요?")); // 하루에 몇 시간 훈련할 건가요? 2.5 => 2시간 30분
+      console.log(expert, hours);
+
+      const result = parseInt(10000 / hours); // 1만 시간을 채우기 위해 필요한 일수 계산
+
+      console.log(
+        `당신은 ${expert} 전문가가 되기 위해서 대략 ${result}일 이상 훈련하셔야 합니다.`
+      );
+    </script>
+  </body>
+</html>

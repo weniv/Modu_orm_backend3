@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // 산술 연산
+      console.log(`10 + 3 = ${10 + 3}`);
+      console.log(`10 - 3 = ${10 - 3}`);
+      console.log(`10 / 3 = ${10 / 3}`);
+      console.log(`10 * 3 = ${10 * 3}`);
+      console.log(`10 ** 3 = ${10 ** 3}`);
+      console.log(`10 % 3 = ${10 % 3}`);
+
+      // 단항 연산
+      console.log(-2); // -2 (음수로 변환)
+      console.log(-(-2)); // 2 (양수로 변환)
+      console.log(+4); // 4 (양수로 유지)
+      console.log(+-4);
+      console.log(+"4"); // 4 (문자열 '4'를 숫자 4로 변환) => 권장 X
+      console.log(Number("4")); // 또는 parseInt, parseFloat()
+
+      // 증감 연산
+      console.log("=== 증감연산 ===");
+      let num = 3;
+      console.log(num);
+      // 전위: +1 => 반환, num = num +1 => console.log(num)
+      console.log(`증감연산 : ${++num}`);
+      console.log(num); // 4
+      // 후위: 반환 => +1, console.log(num) => num = num + 1
+      console.log(`증감연산 : ${num++}`); // 4
+      console.log(num); // 5
+
+      // 전위: -1 => 반환,
+      console.log(`증감연산 : ${--num}`); // 4
+      console.log(num);
+      // 후위: 반환 => -1
+      console.log(`증감연산 : ${num--}`);
+      console.log(num);
+
+      // num = num + 1, num += 1
+
+      // 비교 연산자
+      console.log("==== 비교 연산 ====");
+      // 1. 크기 비교
+      console.log(`2 > 3 : ${2 > 3}`); // false
+      console.log(`2 >= 3 : ${2 >= 3}`); // false
+      console.log(`2 < 3 : ${2 < 3}`); // true
+      console.log(`2 <= 3 : ${2 <= 3}`); // true
+
+      // 2. 값 비교(같은지 또는 다른지)
+      console.log(`2 == 2: ${2 == 2}`);
+      console.log(`2 == '2': ${2 == "2"}`); // 느슨한 비교
+      console.log(`2 === '2': ${2 === "2"}`); // 엄격한 비교
+      console.log(`2 != 3: ${2 != 3}`);
+      console.log(`2 != '2': ${2 != "2"}`); // false
+      console.log(`2 !== '2': ${2 !== "2"}`); // true
+
+      // 무한대(Infinity)
+      console.log("무한대 : ", 1 / 0);
+      console.log("무한대 : ", -1 / 0);
+
+      let numInfinity = 9999e10000;
+      console.log(numInfinity === Infinity);
+
+      // NaN(Not a Number), 숫자가 아님
+      console.log("숫자가 아님" / 2); // NaN
+
+      // NaN 확인 방법
+      // 1. isNaN() 함수 => 주어진 값을 숫자로 변환
+      console.log(isNaN("abc")); // true
+      console.log(isNaN("2")); // false
+      // 2. Number.isNaN() 메서드
+      console.log(Number.isNaN("2")); // 문자열, NaN
+      console.log(Number.isNaN("숫자가 아님" / 2));
+
+      // 언제 사용? => 입력값 검증...
+
+      // BigInt: 정확한 정수 표현을 가능하게 한다.
+      // BigInt는 BigInt끼리만 연산이 가능합니다.
+      // 32 => 32n
+      console.log(Number.MAX_SAFE_INTEGER); // 최대 안전 정수
+      console.log(Number.MIN_SAFE_INTEGER);
+
+      let maxSafeInt = 9007199254740991;
+      console.log(maxSafeInt + 1);
+      console.log(maxSafeInt + 2);
+
+      let bigNum = 9007199254740991n;
+      //   console.log(bigNum + 2); type error
+      console.log(bigNum + 2n);
+
+      let num2 = 2;
+      console.log(bigNum + BigInt(num2));
+
+      // 언제 사용? 금융 시스템,,,
+
+      // 숫자형 메소드
+      // parseInt(문자열, [진수]): 문자열을 파싱해서 특정 진수의 정수를 반환합니다.
+      // 두번째 인자를 전달하지 않을 때: 숫자형변환
+      console.log(parseInt("2"));
+      console.log(parseInt("23456hello"));
+      console.log(parseInt("23456hello123"));
+      console.log(parseInt("40.5"));
+      console.log(parseInt(40.5));
+
+      console.log(parseInt("110", 2)); // 6
+      console.log(parseInt("A", 16)); // 10
+
+      // parseFloat(): 실수를 반환.
+      console.log(parseFloat("40.5"));
+      console.log(parseFloat("40.5hello333"));
+
+      // toString()
+      let num3 = 5;
+      console.log(typeof num3);
+      console.log(typeof num3.toString());
+      console.log((3).toString());
+      console.log((6).toString(2));
+
+      // Math 객체 메서드
+      console.log(Math.floor(4.7)); // 내림 => 실수를 정수로 변환
+      console.log(Math.max(10, 20, 30, 40, 50)); // 50
+      console.log(Math.min(10, 20, 30, 40, 50)); // 10
+      console.log(Math.max(...[10, 20, 30, 40, 50]));
+
+      // Math.random()
+      console.log(Math.random()); // 0 이상 1미만 실수
+      console.log(Math.random() * 10); // 0 이상 10 미만 실수
+
+      // 1부터 100까지의 랜덤한 정수
+      console.log(Math.random() * 100); // 0 이상 100 미만 실수
+      // floor, parseInt
+      console.log(Math.floor(Math.random() * 100)); // 0 이상 100 미만 정수
+      console.log(Math.floor(Math.random() * 100) + 1); // 1 이상 100 이하 정수
+    </script>
+  </body>
+</html>

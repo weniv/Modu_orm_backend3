@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #product-list,
+        #cart {
+            border: 2px solid #ccc;
+            padding: 20px;
+        }
+
+        #product-list {
+            background-color: #f9f9f9;
+        }
+
+        #cart {
+            background-color: #fff;
+        }
+
+        .product {
+            padding: 10px;
+            margin-bottom: 10px;
+            background-color: #e1f5fe;
+            cursor: grab;
+        }
+
+        .product:active {
+            cursor: grabbing;
+        }
+
+        #cart.drag-over {
+            background-color: teal
+        }
+    </style>
+</head>
+
+<body>
+    <h2>제품 목록</h2>
+    <div id="product-list">
+        <div class="product" draggable="true">상품 1</div>
+        <div class="product" draggable="true">상품 2</div>
+        <div class="product" draggable="true">상품 3</div>
+        <div class="product" draggable="true">상품 4</div>
+    </div>
+
+    <h2>장바구니</h2>
+    <div id="cart">
+        <p>장바구니가 비어 있습니다.</p>
+    </div>
+
+
+    <script>
+        const products = document.querySelectorAll('.product');
+        const cart = document.querySelector('#cart');
+
+        products.forEach((product) => {
+            product.addEventListener('dragstart', (event) => {
+                event.dataTransfer.setData('text/plain', event.target.textContent);
+            });
+        });
+
+        cart.addEventListener('dragover', (event) => {
+            event.preventDefault();
+            cart.classList.add('drag-over');
+        });
+
+        cart.addEventListener('dragleave', () => {
+            cart.classList.remove('drag-over');
+        });
+
+        cart.addEventListener('drop', (event) => {
+            cart.classList.remove('drag-over');
+            const productName = event.dataTransfer.getData('text/plain');
+
+            if (cart.querySelector('p')) {
+                cart.innerHTML = '';
+            }
+
+            const item = document.createElement('div');
+            item.textContent = productName;
+            cart.append(item);
+        }); 
+    </script>
+</body>
+
+</html>

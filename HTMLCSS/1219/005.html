@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <style>
+            .container {
+                background-color: #eee;
+                /* flex 설정 */
+                /* 자식요소들을 배치시킬 수 있게 됨 */
+                display: flex;
+                /* 주축의 방향. 기본값 row */
+                flex-direction: row;
+                /* flex-direction: row-reverse;
+                flex-direction: column;
+                flex-direction: column-reverse; */
+
+                /* 주축을 기준으로 아이템을 정렬 */
+                justify-content: flex-start;
+                /* justify-content: flex-end; */
+                /* justify-content: center; */
+                /* 아이템 주변에 동일한 간격 */
+                /* justify-content: space-around; */
+                /* 아이템 사이에 동일한 간격 */
+                /* justify-content: space-between; */
+                /* 양끝과 아이템 사이에 동일한 간격 */
+                /* justify-content: space-evenly; */
+
+                /* 교차축을 기준으로 아이템 정렬 */
+                /* align-items: stretch; */
+                height: 500px;
+                /* align-items: flex-start; */
+                /* align-items: flex-end; */
+                /* 가운데 정렬 */
+                /* align-items: center; */
+
+                /* 아이템 사이의 간격 */
+                gap: 10px 20px;
+
+                /* 아이템을 한 줄에 배치할 것인지, 여러 줄에 배치할 것인지 */
+                flex-wrap: wrap;
+            }
+
+            .item {
+                width: 100px;
+                height: 100px;
+                background-color: aqua;
+                border: solid 1px black;
+                font-size: 32px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="item">1</div>
+            <div class="item">2</div>
+            <div class="item">3</div>
+            <div class="item">4</div>
+            <div class="item">5</div>
+            <div class="item">6</div>
+            <div class="item">7</div>
+            <div class="item">8</div>
+            <div class="item">8</div>
+            <div class="item">8</div>
+            <div class="item">8</div>
+            <div class="item">8</div>
+            <div class="item">8</div>
+            <div class="item">8</div>
+            <div class="item">8</div>
+            <div class="item">8</div>
+            <div class="item">8</div>
+            <div class="item">8</div>
+            <div class="item">8</div>
+        </div>
+    </body>
+</html>

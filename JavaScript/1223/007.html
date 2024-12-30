@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // 1. var: 변경이 가능, 재선언, 재할당 가능
+      var name = "유진";
+      name = "빙키"; // 재할당
+      console.log(name); // 빙키
+
+      var name = "주성"; // 재선언
+      console.log(name);
+
+      // 2. let: 재할당 가능, 재선언 불가능
+      let company = "위니브";
+      company = "모두연"; // 재할당
+      console.log(company);
+
+      // 재선언 불가
+      //   let company = "카카오";
+      // Syntax Error 발생
+
+      // 3. const: 상수, 재선언과 재할당 모두 불가능
+      const nickname = "Binky"; // 선언할 때 동시에 할당을 해야 한다.
+      //   const nickname = "Zeezee"; // 재선언
+      //   nickname = "Zeezee"; 타입 에러 발생
+
+      //   const a; 선언만 하는 것은 불가능.
+    </script>
+  </body>
+</html>

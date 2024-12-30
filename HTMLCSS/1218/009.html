@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <style>
+            div {
+                width: 100px;
+                height: 100px;
+                background-color: rgb(32, 147, 247);
+                margin-bottom: 20px;
+            }
+
+            .box1,
+            .box3 {
+                padding: 20px;
+                border: solid 10px navy;
+            }
+
+            /* width = 콘텐츠 너비 + padding + border */
+            .box1 {
+                box-sizing: border-box;
+            }
+
+            /* 기본값. 너비에 패딩과 보더를 포함하지 않음 */
+            .box3 {
+                box-sizing: content-box;
+            }
+
+            .radius {
+                /* border-radius: 30px; */
+                border-radius: 10px 20px 30px 40px / 40px 30px 20px 10px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="box1"></div>
+        <div class="box2"></div>
+        <div class="box3"></div>
+
+        <div class="radius"></div>
+    </body>
+</html>

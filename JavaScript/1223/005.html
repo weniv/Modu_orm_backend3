@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      const name = "Binky";
+      let age = 20;
+      let gender;
+      gender = "F";
+      console.log(name, age, gender);
+
+      // 키워드 생략 -> 암묵적인 var 선언
+      company = "weniv"; // var company = "weniv"
+      console.log(company);
+
+      // 엄격모드에서는 참조에러가 발생 => company가 정의되지 않았다.
+
+      // 변수가 가리키는 값
+      let x = 10;
+      let y = x;
+      let z = y;
+      x = 20;
+
+      console.log("x", x);
+      console.log("y", y);
+      console.log("z", z);
+    </script>
+  </body>
+</html>

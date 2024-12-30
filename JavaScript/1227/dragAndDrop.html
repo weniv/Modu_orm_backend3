@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .target {
+            width: 100px;
+            height: 100px;
+            background-color: teal;
+        }
+
+        .zone {
+            margin-top: 200px;
+            width: 500p;
+            height: 500px;
+            background-color: royalblue;
+        }
+    </style>
+</head>
+
+<body>
+    <div draggable="true" class="target">드래그하세요</div>
+    <div class="zone">드랍존</div>
+    <!-- <img src="images/icon-lock.png" alt="">
+    <a href="#none">링크입니다.</a> -->
+
+    <script>
+        const target = document.querySelector('.target');
+        const zone = document.querySelector('.zone');
+
+        target.addEventListener('dragstart', (event) => {
+            console.log('drag start!!');
+
+            // event.dataTransfer.setData('text/plain', '어쩌구 저쩌구!!');
+
+
+            const data = {
+                id: 1,
+                type: 'a',
+                content: '블라블라'
+            }
+
+            event.dataTransfer.setData('application/json', JSON.stringify(data));
+        });
+
+        // target.addEventListener('drag', () => {
+        //     console.log('dragging...');
+        // });
+
+        target.addEventListener('dragend', () => {
+            console.log('drag end');
+        });
+
+
+        zone.addEventListener('dragenter', () => {
+            console.log('drag enter!!');
+        });
+
+        zone.addEventListener('dragover', (event) => {
+            event.preventDefault();
+            console.log('drag over!!');
+        });
+
+        zone.addEventListener('dragleave', () => {
+            console.log('drag leave!!');
+        });
+
+        zone.addEventListener('drop', (event) => {
+            console.log('drop!!!');
+
+            const jsonData = JSON.parse(event.dataTransfer.getData('application/json'));
+
+            console.log('전달받은 데이터: ', jsonData);
+        });
+    </script>
+</body>
+
+</html>

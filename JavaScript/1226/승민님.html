@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container {
+            width: 400px;
+            height: 400px;
+            margin: auto;
+        }
+
+        .buttons {
+            width: 50%;
+            margin: auto;
+        }
+
+        .red {
+            background-color: red;
+        }
+
+        .yellow {
+            background-color: yellow;
+        }
+
+        .green {
+            background-color: green;
+        }
+
+        ul>li {
+            display: inline-block;
+            margin-left: 50px;
+            margin-right: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container red"></div>
+    <ul class="buttons">
+        <li><button id="red">빨강</button></li>
+        <li><button id="yellow">노랑</button></li>
+        <li><button id="green">초록</button></li>
+    </ul>
+    <script>
+        const redBtn = document.querySelector('#red');
+        const yellowBtn = document.querySelector('#yellow');
+        const greenBtn = document.querySelector('#green');
+        const container = document.querySelector('.container');
+
+        redBtn.addEventListener('click', function () {
+
+            container.classList.remove('yellow', 'green');
+            container.classList.add('red');
+        });
+        yellowBtn.addEventListener('click', function () {
+
+            container.classList.remove('red', 'green');
+            container.classList.add('yellow');
+        });
+        greenBtn.addEventListener('click', function () {
+
+            container.classList.remove('red', 'yellow');
+            container.classList.add('green');
+        });
+    </script>
+</body>
+
+</html>

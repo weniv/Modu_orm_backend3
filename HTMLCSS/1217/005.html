@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <style>
+            /* 자손 선택자
+            기준이 되는 태그의 하위(자손)요소 중에 선택 */
+            section p {
+                font-weight: bolder;
+            }
+
+            /* 자식 선택자
+            직계 자식 중에서만 선택 */
+            section > p {
+                background-color: pink;
+            }
+
+            /* 일반 형제 선택자
+            형제 요소 중 기준이 되는 태그 뒤에 나오는 모든 요소들을 선택 */
+            section ~ p {
+                color: blue;
+            }
+
+            /* 인접 형제 선택자
+            기준이 되는 요소의 바로 뒤에 인접한 형제요소만 선택 */
+            section + p {
+                background-color: lime;
+            }
+        </style>
+    </head>
+    <body>
+        <p>Lorem ipsum dolor sit amet</p>
+        <p>Lorem ipsum dolor sit amet</p>
+        <p>Lorem ipsum dolor sit amet</p>
+        <section>
+            <div>
+                <p>Lorem ipsum dolor sit amet</p>
+            </div>
+            <p>Lorem ipsum dolor sit amet</p>
+            <p>Lorem ipsum dolor sit amet</p>
+        </section>
+        <p>Lorem ipsum dolor sit amet</p>
+        <p>Lorem ipsum dolor sit amet</p>
+        <p>Lorem ipsum dolor sit amet</p>
+    </body>
+</html>

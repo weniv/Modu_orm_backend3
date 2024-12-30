@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // undefined: 변수가 저장되었지만, 값이 지정되지 않은 경우
+      let a;
+      console.log(a); // undefined
+
+      // null: 값이 의도적으로 비어있음을 표현하기 위해 사용
+      let value1;
+      let value2 = null; // 아무것도 없다!!!
+      console.log(value1); // undefined
+      console.log(value2); // null
+
+      // truthy: true 간주되는 값 => falsy 외에 모든  값
+      // falsy: false로 간주되는 값 => 숫자 0, 빈 문자열, undefined, null, NaN
+
+      // 논리곱
+      console.log(true && true);
+      console.log(true && false);
+      console.log(false && true);
+      console.log(false && false);
+
+      console.log(1 && 0); // 0
+      console.log(1 && 1225); // 1225
+
+      console.log(true && "hello");
+      console.log(false && "hello");
+      console.log(true && "hello" && "" && true);
+
+      // 조건문에서의 논리곱 연산
+      let isRaining = true;
+      let hasUmbrella = true;
+
+      if (isRaining && hasUmbrella) {
+        console.log("외출을 한다");
+      } else {
+        console.log("외출을 하지 않는다");
+      }
+
+      // 논리합, OR
+      console.log(true || false); // true
+      console.log(false || true); // true
+      console.log(false || false); // false
+
+      console.log(0 || 1);
+      console.log(1 || 1225);
+      console.log(true || "hello");
+      console.log(false || "hello");
+      console.log(false || "hello" || "");
+      console.log(false || "" || null || "hello");
+
+      // 논리부정, NOT
+      console.log(!true); //false
+      console.log(!false); // true
+
+      console.log(!!true);
+      console.log(!!false);
+
+      console.log(!!null);
+      console.log(!!undefined);
+      console.log(!!0);
+      console.log(!!"");
+      console.log(!!NaN);
+      console.log(!!"hello");
+      console.log(!!1);
+    </script>
+  </body>
+</html>

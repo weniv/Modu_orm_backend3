@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            min-height: 150vh;
+            /* 스크롤 가능하도록 */
+        }
+
+        /* 고정된 관찰 영역 */
+        #root {
+            width: 100%;
+            height: 300px;
+            border: 4px solid red;
+            background-color: rgba(255, 0, 0, 0.1);
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            overflow-y: scroll;
+        }
+
+        .space {
+            height: 100vh;
+        }
+
+        /* 움직이는 타겟 요소 */
+        .target {
+            width: 150px;
+            height: 150px;
+            border: 4px solid blue;
+            background-color: rgba(0, 0, 255, 0.1);
+            margin: 400px auto;
+            transition: all 0.3s ease;
+        }
+
+        /* 교차 상태일 때 스타일 */
+        .target.intersecting {
+            background-color: purple;
+        }
+
+        /* 상태 표시 */
+        #status {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: white;
+            padding: 10px;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+
+<body>
+    <div id="status">교차 상태: <span id="intersectionStatus">교차하지 않음</span></div>
+
+    <!-- 고정된 관찰 영역 -->
+    <div id="root">
+        <div class="target"></div>
+    </div>
+
+    <script>
+        const root = document.getElementById('root');
+        const target = document.querySelector('.target');
+        const status = document.getElementById('intersectionStatus');
+
+        const observer = new IntersectionObserver(
+            (entry) => {
+                console.log(entry);
+                if (entry[0].isIntersecting) {
+                    status.textContent = '교차 중';
+                } else {
+                    status.textContent = '교차하지 않음';
+                }
+            },
+            {
+                root: root,    // 관찰할 루트 지정
+                threshold: 0.3 // 30% 겹쳤을 때 감지합니다.
+            }
+        );
+
+        observer.observe(target); // 관찰 시작!
+        // observer.unobserve(target); // 특정 요소의 관찰을 중지
+        observer.disconnect(); // 모든 요소의 관찰을 중지
+    </script>
+</body>
+
+</html>

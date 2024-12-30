@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <!-- 1. 웹페이지의 상단에 위치
+        2. 사이트의 제목, 로고, 검색창, 네비게이션등을 포함
+        3. 중첩 사용 불가능
+        4. footer태그 포함할 수 없음 -->
+        <header></header>
+
+        <!-- 잘못 사용된 예 -->
+        <header>
+            <header></header>
+        </header>
+
+        <header>
+            <footer></footer>
+        </header>
+
+        <!-- 네비게이션의 줄임말
+        현재 페이지에서 다른 요소로 이동하거나 다른 페이지로 이동하는 경우 -->
+        <!-- 보통 ul태그와 함께 사용 -->
+        <nav>
+            <ul>
+                <li><a href="#">위니브</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </nav>
+
+        <!-- 브레드크럼의 경우 il 태그로 사용 -->
+        <nav>
+            <ol>
+                <li><a href="#">위니브</a></li>
+                <li><a href="#">캐릭터소개</a></li>
+                <li>라이캣</li>
+            </ol>
+        </nav>
+
+        <!-- 주요 콘텐츠. 웹페이지에서 한번만 사용가능 -->
+        <!-- 주로 아래와 같은 형식으로 사용 -->
+        <header></header>
+        <main></main>
+        <footer></footer>
+
+        <!-- 웹페이지의 하단에 위치. 작성자, 저작권 정보, 관련 문서등의 내용 -->
+        <footer></footer>
+
+        <!-- 문서 내 측정한 섹션을 정의. 헤딩태그를 꼭 포함 -->
+        <section>
+            <h3>section</h3>
+        </section>
+
+        <!-- 독립적인 컨텐츠를 구분할 때 사용. 헤딩태그를 꼭 포함 -->
+        <article>
+            <h3>article</h3>
+        </article>
+
+        <!-- 문서의 내용과 간접적으로 연괸된 내용. 사이드바, 광고 등등 -->
+        <aside></aside>
+    </body>
+</html>

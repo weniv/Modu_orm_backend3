@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <style>
+            /* 키워드 */
+            h1 {
+                color: red;
+            }
+
+            /* 16진수 HEX값 #RRGGBB의 구조 */
+            h2 {
+                color: #ff0000;
+                /* color: #00ff00;
+                color: #0000ff;
+                color: #000000;
+                color: #000;
+                color: #ffffff;
+                color: #fff; */
+            }
+
+            /* rgba */
+            h3 {
+                color: rgba(255, 0, 0, 0.3);
+            }
+
+            /* 투명한 색상 키워드 */
+            h4 {
+                color: transparent;
+            }
+
+            div {
+                color: orange;
+            }
+
+            /* 현재 요소의 색상 값을 상속받아 다른 속성에 적용할 수 있음. */
+            h5 {
+                border: solid 2px currentColor;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>hello</h1>
+        <h2>hello</h2>
+        <h3>hello</h3>
+        <h4>hello</h4>
+        <div>
+            <h5>hello</h5>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <style>
+            /* 요소선택자 1 + id 선택자 100점 = 101 */
+            div #id1 {
+                color: green;
+            }
+
+            /* 요쇼 선택자 1 */
+            p {
+                color: black;
+            }
+
+            /* id 선택자 100 */
+            #id1 {
+                color: blue;
+            }
+
+            /* 클래스 선택자 10 */
+            .class {
+                color: yellow;
+            }
+        </style>
+    </head>
+    <body>
+        <div>
+            <p id="id1" class="class">1. 이 글자는 어떤 색일까요?</p>
+            <!-- 인라인 스타일 1000점 -->
+            <p id="id2" class="class" style="color: red">2. 이 글자는 어떤 색일까요?</p>
+            <!-- 정담 1. green 2. red -->
+        </div>
+    </body>
+</html>

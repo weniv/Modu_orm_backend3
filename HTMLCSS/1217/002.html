@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <!-- 외부 스타일 시트 연결 -->
+        <link rel="stylesheet" href="./002.css" />
+        <style>
+            /* 내부스타일 스타일적용 */
+            h2 {
+                color: blue;
+            }
+        </style>
+    </head>
+    <body>
+        <!-- 인라인 방식. 스타일이 조금만 길어져도 가독성이 심하게 떨어져 일반적인 상황에서 권장되지 않음 -->
+        <h1 style="color: red">인라인 방식</h1>
+        <!-- 내부 스타일 방식. html 파일내에 작성해서 복잡도가 증가하고 가독성이 떨어짐 -->
+        <h2>내부 스타일</h2>
+        <!-- 외부 스타일 방식. 실무에서 대중적으로 사용되는 방식. 코드의 가독성, 효율성, 유지보수성이 높아짐 -->
+        <h3>외부 스타일</h3>
+    </body>
+</html>

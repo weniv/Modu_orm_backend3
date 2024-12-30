@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <style>
+            div {
+                width: 100px;
+                height: 100px;
+                background-color: lavender;
+            }
+
+            .box1 {
+                padding: 50px;
+                /* 상 우 하 좌 */
+                padding: 50px 50px 50px 50px;
+
+                padding: 10px 20px 30px 40px;
+                padding-top: 10px;
+                padding-right: 20px;
+                padding-bottom: 30px;
+                padding-left: 40px;
+
+                /* 상 좌우 하 */
+                padding: 10px 20px 30px;
+
+                /* 상하 좌우 */
+                padding: 10px 20px;
+
+                border: solid 1px black;
+
+                margin: 20px;
+                /* 상 우 하 좌 */
+                margin: 20px 20px 20px 20px;
+
+                /* 상 좌우 하 */
+                margin: 10px 20px 30px;
+
+                /* 상하 좌우 */
+                margin: 10px 20px;
+            }
+
+            .box2 {
+                width: auto;
+            }
+
+            .box2 p {
+                width: 100px;
+                background-color: aqua;
+                /* 가운데 정렬 */
+                /* margin: auto; */
+                /* 오른쪽 정렬 */
+                margin-left: auto;
+            }
+
+            p {
+                padding: 10px 20px;
+                background-color: aquamarine;
+            }
+
+            .border1 {
+                border: 5px solid black;
+            }
+
+            .border2 {
+                border: 5px dashed rgba(12, 97, 255, 0.3);
+            }
+
+            .border3 {
+                border: 5px dotted red;
+            }
+
+            .border4 {
+                border-bottom: 3px solid gray;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="box">box</div>
+        <div class="box1">box1</div>
+
+        <div class="box2">
+            <p>마진을 이용한 요소 배치</p>
+        </div>
+
+        <p class="border1">hello</p>
+        <p class="border2">hello</p>
+        <p class="border3">hello</p>
+        <p class="border4">hello</p>
+    </body>
+</html>

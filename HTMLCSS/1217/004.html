@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <style>
+            /* 특성선택자 */
+            /* type이라는 속성을 가진 모든 요소 선택 */
+            [type] {
+                border: solid 2px red;
+            }
+
+            /* type이라는 속성의 값이 text인 모든 요소 */
+            [type="text"] {
+                background-color: aqua;
+            }
+
+            /* button 태그 중 type의 속성 값이 button인 요소 */
+            button[type="button"] {
+                background-color: blue;
+            }
+
+            /* 그룹 선택자 */
+            input,
+            button {
+                outline: 2px solid yellowgreen;
+            }
+        </style>
+    </head>
+    <body>
+        <input type="text" />
+        <input type="button" value="input" />
+        <button type="button">button</button>
+    </body>
+</html>

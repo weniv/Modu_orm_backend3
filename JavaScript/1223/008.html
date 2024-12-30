@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // 스코프(전역, 지역)
+      // let, const: 블록 스코프, 지역 스코프
+      // 블록 안에서 선언될 경우 블록 밖에서 접근할 수 없다.
+      {
+        let message1 = "모두연 오름캠프 백엔드 3기 화이팅!";
+        const message2 = "모두연 오름캠프 백엔드 3기 사랑해!";
+      }
+      // console.log(message1); // 참조 에러
+      //   console.log(message2); // 참조 에러
+
+      // 블록 밖에서 선언된 변수는 블록 안에서는 접근이 가능하다.
+      let message3 = "모두연 오름캠프 백엔드 3기 건강해!";
+      {
+        console.log(message3);
+      }
+
+      // var: 전역 스코프
+      // 블록 안에서 선언된 변수도, 블록 밖에서 접근이 가능하다.
+      {
+        var message4 = "모두연 오름캠프 백엔드 3기 행복해!";
+      }
+      console.log(message4);
+    </script>
+  </body>
+</html>

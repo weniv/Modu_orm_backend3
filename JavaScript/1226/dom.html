@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 앵커의 기본 동작을 중지 -->
+    <a href="https://www.naver.com" class="link">네이버 링크입니다만..</a>
+    <script>
+        const link = document.querySelector('.link');
+        link.addEventListener('click', (event) => {
+            console.log('clicked');
+            // event.preventDefault();
+        });
+    </script>
+
+    <!-- submit 의 기본 동작을 중지 -->
+    <form method="" action="">
+        <button type="submit" class="submit">제출</button>
+    </form>
+    <script>
+        const submit = document.querySelector('.submit');
+        document.body.addEventListener('click', () => {
+            console.log('body event!!!');
+        });
+
+
+        submit.addEventListener('click', (event) => {
+            confirm('실행하시겠습니까??');
+            event.preventDefault();
+            event.stopPropagation();
+        });
+
+
+        document.addEventListener('contextmenu', (event) => {
+            event.preventDefault()
+            alert('이 페이지에서는 오른쪽 클릭을 지원하지 않습니다.');
+        });
+    </script>
+</body>
+
+</html>

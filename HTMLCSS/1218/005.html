@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <style>
+            h1 {
+                color: red;
+            }
+
+            h1 {
+                color: blue;
+            }
+
+            /* 후자 우선의 원칙 */
+            /* 가장 마지막에 정의된 스타일이 적용 */
+            h1 {
+                color: green;
+            }
+
+            /* 구체성의 원칙 */
+            /* 선택자가 얼마나 구체적으로 요소를 지정하는지 */
+            /* 2점 + 20점 */
+            div.container p.text {
+                background-color: aquamarine;
+            }
+
+            /* 1점 */
+            p {
+                background-color: orange;
+            }
+
+            /* 우선순위에 영향을 미치고, 유지보수성이 떨어지기 때문에 사용하지 않는 것을 권장 */
+            p {
+                background-color: orange !important;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>hello world</h1>
+
+        <div class="container">
+            <p class="text">Hello World</p>
+        </div>
+    </body>
+</html>

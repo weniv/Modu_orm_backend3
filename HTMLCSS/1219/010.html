@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <style>
+            :root {
+                --main-color: #2d6ff1;
+            }
+
+            h1 {
+                color: var(--main-color);
+            }
+
+            h1 a,
+            h2 a,
+            h3 a {
+                background-color: antiquewhite;
+            }
+
+            :is(h1, h2, h3) a {
+                background-color: aquamarine;
+            }
+
+            /* :is 보다 우선순위가 낮음 */
+            :where(h1, h2, h3) a {
+                background-color: red;
+            }
+
+            a:not(.weniv) {
+                border: solid 5px red;
+            }
+
+            h3:has(a) {
+                font-size: 32px;
+            }
+
+            .navbar {
+                background-color: burlywood;
+
+                ul {
+                    list-style-type: disc;
+
+                    li {
+                        display: inline-block;
+                        color: red;
+                        font-size: 32px;
+                    }
+                }
+
+                :hover {
+                    color: blue;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <h1>
+            <a href="" class="weniv">위니브</a>
+        </h1>
+        <h2><a href="">회사 소개</a></h2>
+        <h3><a href="">강사 소개</a></h3>
+        <h3>직원 소개</h3>
+
+        <nav class="navbar">
+            <ul>
+                <li>Home</li>
+                <li>About</li>
+                <li>Contact</li>
+            </ul>
+        </nav>
+    </body>
+</html>

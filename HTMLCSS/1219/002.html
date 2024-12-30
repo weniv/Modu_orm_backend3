@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <style>
+            .static {
+                position: static;
+                background-color: rgba(0, 0, 255, 0.5);
+            }
+
+            .static,
+            .absolute1,
+            .absolute2 {
+                width: 100px;
+                height: 100px;
+            }
+
+            .parent {
+                position: relative;
+                margin: 50px;
+            }
+
+            .absolute1 {
+                position: absolute;
+                background-color: rgba(255, 0, 0, 0.5);
+                top: 0;
+                left: 0;
+            }
+
+            .absolute2 {
+                position: absolute;
+                background-color: rgba(0, 255, 0, 0.5);
+                top: 0;
+                left: 0;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="parent">
+            <!-- static은 기본값. 정상적인 흐름을 유지 -->
+            <div class="static">static1</div>
+            <div class="static">static2</div>
+            <div class="static">static3</div>
+            <div class="static">static4</div>
+            <div class="static">static5</div>
+            <!-- absolute 정상적인 흐름에서 벗어남. 다른 요소의 배치에 영향을 끼치지 않음 -->
+            <div class="absolute1">absolute1</div>
+        </div>
+        <!-- 가장 가까운 조상 요소 중 static이 아닌 position 속성을 가지고 있는 요소를 기준으로 배치. 그러한 요소가 없을 경우 뷰포트를 기준으로 배치 -->
+        <div class="absolute2">absolute2</div>
+    </body>
+</html>

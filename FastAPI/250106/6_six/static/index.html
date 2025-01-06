@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <!-- Toast Editor 2.0.0과 의존성 -->
+    <link
+        rel="stylesheet"
+        href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css"
+    />
+    <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
+</head>
+<body>
+    <h1>SPA</h1>
+    <div class="blogs"></div>
+    <button class="btn_blogs">목록 불러오기</button>
+
+    <div class="blogcreate"></div>
+    <input type="text" class="create_blogtitle" placeholder="블로그 제목">
+    <div id="editor"></div>
+    <button class="btn_blogcreate">블로그 생성</button>
+    
+    <script>
+        const Editor = toastui.Editor;
+
+        const editor = new Editor({
+            el: document.querySelector("#editor"),
+            height: "600px",
+            initialEditType: "markdown",
+            previewStyle: "vertical",
+        });
+
+        // 블로그 목록
+        const blogs = document.querySelector('.blogs');
+
+        // 블로그 목록 불러오기 버튼
+        const btn_blogs = document.querySelector('.btn_blogs');
+
+        // 블로그 생성
+        const create_blogtitle = document.querySelector('.create_blogtitle');
+
+        // 블로그 생성 버튼
+        const btn_blogcreate = document.querySelector('.btn_blogcreate');
+
+
+
+        // 블로그 목록
+        btn_blogs.addEventListener('click', async () => {
+            const response = await fetch('http://127.0.0.1:8000/blogs');
+            const data = await response.json();
+            console.log(data);
+            blogs.innerHTML = '';
+            data.forEach(element => {
+                blogs.innerHTML += `
+                    <div>
+                        <h2>${element.title}</h2>
+                        <p>${element.created_at}</p>
+                        <p>${element.updated_at}</p>
+                        <p>${element.id}</p>
+                        <p>${element.author}</p>
+                        <p>${element.content}</p>
+                    </div>
+                `;
+            });
+        });
+
+        // 블로그 생성
+        btn_blogcreate.addEventListener('click', async () => {
+            const response = await fetch('http://127.0.0.1:8000/blogs', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    title: create_blogtitle.value,
+                    content: editor.getMarkdown()
+                })
+            });
+        });
+    </script>
+</body>
+</html>

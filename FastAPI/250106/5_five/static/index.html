@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+</head>
+<body>
+    <h1>파일 업로드 예제</h1>
+    
+    <div class="upload-container">
+        <h2>파일 선택</h2>
+        <input type="file" id="fileInput">
+        <button onclick="uploadFile()">업로드</button>
+    </div>
+
+    <div id="message"></div>
+
+    <div class="file-list">
+        <h2>업로드된 파일 목록</h2>
+        <ul id="fileList"></ul>
+    </div>
+
+    <script>
+        // 파일 업로드 함수
+        async function uploadFile() {
+            const fileInput = document.getElementById('fileInput');
+            const messageDiv = document.getElementById('message');
+            
+            if (!fileInput.files.length) {
+                messageDiv.innerHTML = '<p class="error">파일을 선택해주세요.</p>';
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('file', fileInput.files[0]);
+
+            try {
+                const response = await fetch('http://localhost:8000/upload/', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const result = await response.json();
+                
+                if (response.ok) {
+                    messageDiv.innerHTML = `<p class="success">${result.message}</p>`;
+                    loadFileList(); // 파일 목록 새로고침
+                } else {
+                    messageDiv.innerHTML = `<p class="error">${result.message}</p>`;
+                }
+            } catch (error) {
+                messageDiv.innerHTML = `<p class="error">업로드 중 오류가 발생했습니다: ${error.message}</p>`;
+            }
+        }
+
+        // 파일 목록 불러오기
+        async function loadFileList() {
+            try {
+                const response = await fetch('http://localhost:8000/files/');
+                const data = await response.json();
+                
+                const fileList = document.getElementById('fileList');
+                fileList.innerHTML = '';
+                
+                data.files.forEach(file => {
+                    const li = document.createElement('li');
+                    li.textContent = file;
+                    fileList.appendChild(li);
+                });
+            } catch (error) {
+                console.error('파일 목록을 불러오는 중 오류 발생:', error);
+            }
+        }
+
+        // 페이지 로드 시 파일 목록 불러오기
+        loadFileList();
+    </script>
+</body>
+</html>

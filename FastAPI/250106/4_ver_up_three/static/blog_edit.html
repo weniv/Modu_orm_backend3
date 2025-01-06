@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+</head>
+<body>
+    <h1>블로그 수정하기</h1>
+    <!--
+        블로그 수정하기에는 기존 데이터가 필요합니다. 
+    -->
+    <form action="127.0.0.1:8000/blogs" method="post">
+        <input type="text" name="title" placeholder="제목">
+        <!-- 
+            이렇게 절대 하면 안됩니다. 우리는 연습하는 것이니까....
+            태그나 엔티티 코드를 가지고 UI 수정하면 절대 안됩니다. CSS로 수정해주세요.
+        -->
+        <br>
+        <br>
+        <textarea name="content" placeholder="내용"></textarea>
+        <br>
+        <br>
+        <button>게시물 작성</button>
+    </form>
+    <script>
+        const urlParams = new URLSearchParams(location.search);
+        const form = document.querySelector('form');
+        const id = urlParams.get('id');
+        // 이 id를 기반으로 fetch를 날려서 데이터를 가져와서 form에 넣어줍니다.
+        fetch(`http://127.0.0.1:8000/blogs/${id}`)
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                form.title.value = data.title;
+                form.content.value = data.content;
+            });
+
+        form.addEventListener('submit', (event) => {
+            event.preventDefault();
+            const title = event.target.title.value;
+            const content = event.target.content.value;
+            // console.log(title, content);
+            fetch(`http://127.0.0.1:8000/blogs/${id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    title: title,
+                    content: content
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                location.href = `http://127.0.0.1:8000/static/blog_detail.html?id=${data.id}`
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+    <h1>MPA</h1>
+    <header>blog list</header>
+    <main></main>
+    <a href="http://127.0.0.1:8000/static/blog_create.html">블로그 생성하기</a>
+    <script>
+        const main = document.querySelector('main');
+        fetch('http://127.0.0.1:8000/blogs')
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                data.forEach(element => {
+                    main.innerHTML += `
+                        <a href=http://127.0.0.1:8000/static/blog_detail.html?id=${element.id}>
+                            <h2>${element.title}</h2>
+                            <p>${element.created_at}</p>
+                            <p>${element.updated_at}</p>
+                            <p>${element.id}</p>
+                            <p>${element.author}</p>
+                            <p>${element.content}</p>
+                        </a>
+                    `;
+                });
+            });
+    </script>
+</body>
+</html>

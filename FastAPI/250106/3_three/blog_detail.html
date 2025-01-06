@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+    <h1>MPA</h1>
+    <header>blog detail</header>
+    <main></main>
+    <a href="http://127.0.0.1:5500/FastAPI/250106/3_three/blog_list.html">목록으로 가기</a>
+    <button class="edit">수정하기</button>
+    <button class="delete">삭제하기</button>
+    <script>
+        const main = document.querySelector('main');
+        // URL 구조에서 id를 가져오기
+        // blog_detail.html?id=3
+        const urlParams = new URLSearchParams(location.search);
+        // console.log(urlParams.get('id'));
+        const id = urlParams.get('id');
+
+        fetch(`http://127.0.0.1:8000/blogs/${id}`)
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                main.innerHTML += `
+                    <h2>${data.title}</h2>
+                    <p>${data.created_at}</p>
+                    <p>${data.updated_at}</p>
+                    <p>${data.id}</p>
+                    <p>${data.author}</p>
+                    <p>${data.content}</p>
+                `;
+            });
+
+        // 수정하기
+        const editButton = document.querySelector('.edit');
+        editButton.addEventListener('click', () => {
+            location.href = `http://127.0.0.1:5500/FastAPI/250106/3_three/blog_edit.html?id=${id}`;
+        });
+
+        // 삭제하기
+        const deleteButton = document.querySelector('.delete');
+        deleteButton.addEventListener('click', () => {
+            fetch(`http://127.0.0.1:8000/blogs/${id}`, {
+                method: 'DELETE'
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                location.href = `http://127.0.0.1:5500/FastAPI/250106/3_three/blog_list.html`;
+            });
+        });
+    </script>
+</body>
+</html>

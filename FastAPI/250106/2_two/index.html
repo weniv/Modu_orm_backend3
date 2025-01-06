@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+</head>
+<body>
+    <!--
+        2_two 폴더에서는 SPA(싱글 페이지 어플리케이션) 방식으로 구현합니다.
+        3_three 폴더에서는 MPA(멀티 페이지 어플리케이션) 방식으로 구현합니다. 
+    -->
+    <!--
+        // 고도화 미션
+
+        1. 목록에서 클릭해야 상세 페이지가 보이게 하기
+        2. 로그인, 로그아웃 기능 구현하기
+        3. 로그인한 사용자만 게시물 생성할 수 있게 하기
+        4. 작성자만 수정, 삭제 버튼이 보이게 하기
+        
+    -->
+    <h1>SPA</h1>
+    <p>React 뿐만 아니라 이런식으로 순수한 JS로도 구현 가능합니다.(바닐라JS)</p>
+    <div class="blogs"></div>
+    <button class="btn_blogs">목록 불러오기</button>
+
+    <div class="blogdetails"></div>
+    <input type="text" class="details_blogid" placeholder="블로그 ID">
+    <button class="btn_blogdetils">상세 정보 불러오기</button>
+
+    <div class="blogcreate"></div>
+    <input type="text" class="create_blogtitle" placeholder="블로그 제목">
+    <input type="text" class="create_blogcontent" placeholder="블로그 내용">
+    <button class="btn_blogcreate">블로그 생성</button>
+    
+    <div class="blogedit"></div>
+    <input type="text" class="edit_blogid" placeholder="블로그 ID">
+    <input type="text" class="edit_blogtitle" placeholder="블로그 제목">
+    <input type="text" class="edit_blogcontent" placeholder="블로그 내용">
+    <button class="btn_blogedit">블로그 수정</button>
+
+    <div class="blogdelete"></div>
+    <input type="text" class="delete_blogid" placeholder="블로그 ID">
+    <button class="btn_blogdelete">블로그 삭제</button>
+
+    <script>
+        // 블로그 목록
+        const blogs = document.querySelector('.blogs');
+        const blogdetails = document.querySelector('.blogdetails');
+        const blogedit = document.querySelector('.blogedit');
+        const blogdelete = document.querySelector('.blogdelete');
+
+        // 버튼 및 입력창
+        const btn_blogs = document.querySelector('.btn_blogs');
+
+        const details_blogid = document.querySelector('.details_blogid');
+        const btn_blogdetils = document.querySelector('.btn_blogdetils');
+        
+        const create_blogtitle = document.querySelector('.create_blogtitle');
+        const create_blogcontent = document.querySelector('.create_blogcontent');
+        const btn_blogcreate = document.querySelector('.btn_blogcreate');
+
+        const edit_blogid = document.querySelector('.edit_blogid');
+        const edit_blogtitle = document.querySelector('.edit_blogtitle');
+        const edit_blogcontent = document.querySelector('.edit_blogcontent');
+        const btn_blogedit = document.querySelector('.btn_blogedit');
+
+        const delete_blogid = document.querySelector('.delete_blogid');
+        const btn_blogdelete = document.querySelector('.btn_blogdelete');
+
+
+        // 블로그 목록
+        btn_blogs.addEventListener('click', async () => {
+            const response = await fetch('http://127.0.0.1:8000/blogs');
+            const data = await response.json();
+            console.log(data);
+            blogs.innerHTML = '';
+            data.forEach(element => {
+                blogs.innerHTML += `
+                    <div>
+                        <h2>${element.title}</h2>
+                        <p>${element.created_at}</p>
+                        <p>${element.updated_at}</p>
+                        <p>${element.id}</p>
+                        <p>${element.author}</p>
+                        <p>${element.content}</p>
+                    </div>
+                `;
+            });
+        });
+
+        // 블로그 상세 정보
+        btn_blogdetils.addEventListener('click', async () => {
+            // 만약에 details_blogid.value 값이 비어있다면
+            if (details_blogid.value === '') {
+                alert('블로그 ID를 입력해주세요.');
+                return;
+            }
+            const response = await fetch(`http://127.0.0.1:8000/blogs/${details_blogid.value}`);
+            const data = await response.json();
+            console.log(data);
+            // blogs.innerHTML = '';
+            // 이렇게 했을 때의 장점? 
+            // 1. 사용자의 브라우저는 깜빡이지 않습니다.
+            // 2. 다른 UI를 재로드 하지 않아도 됩니다.
+            blogdetails.innerHTML = `
+                <div>
+                    <h2>${data.title}</h2>
+                    <p>${data.created_at}</p>
+                    <p>${data.updated_at}</p>
+                    <p>${data.id}</p>
+                    <p>${data.author}</p>
+                    <p>${data.content}</p>
+                </div>
+            `;
+        });
+
+        // 블로그 생성
+        btn_blogcreate.addEventListener('click', async () => {
+            const response = await fetch('http://127.0.0.1:8000/blogs', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    title: create_blogtitle.value,
+                    content: create_blogcontent.value
+                })
+            });
+        });
+
+        // 블로그 수정
+        btn_blogedit.addEventListener('click', async () => {
+            // 만약에 edit_blogid.value 값이 비어있다면
+            if (edit_blogid.value === '') {
+                alert('블로그 ID를 입력해주세요.');
+                return;
+            }
+            const response = await fetch(`http://127.0.0.1:8000/blogs/${edit_blogid.value}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    title: edit_blogtitle.value,
+                    content: edit_blogcontent.value
+                })
+            });
+        });
+
+        // 블로그 삭제
+        btn_blogdelete.addEventListener('click', async () => {
+            // 만약에 delete_blogid.value 값이 비어있다면
+            if (delete_blogid.value === '') {
+                alert('블로그 ID를 입력해주세요.');
+                return;
+            }
+            const response = await fetch(`http://127.0.0.1:8000/blogs/${delete_blogid.value}`, {
+                method: 'DELETE'
+            });
+        });
+    </script>
+</body>
+</html>

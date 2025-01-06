@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+</head>
+<body>
+    <p>실제로는 지금 같은 컴퓨터에서 실행이 되지만 다른 서버에서 실행되는 html 파일이라고 생각해주세요.</p>
+    <div id="data"></div>
+    <button id="one">1</button>
+    <button id="two">2</button>
+    <script>
+        // 제대로 데이터를 가지고 올 수 있는지 확인
+        fetch('http://127.0.0.1:8000')
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                const getdata = document.getElementById('data');
+                getdata.innerHTML = data['message'];
+            });
+
+        // 1 버튼을 누르면 데이터를 가지고 올 수 있는지 확인
+        const one = document.getElementById('one');
+        one.addEventListener('click', () => {
+            fetch('http://127.0.0.1:8000/items/1')
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                    const getdata = document.getElementById('data');
+                    const name = data['name'];
+                    const price = data['price'];
+                    getdata.innerHTML = `
+                        <p>name: ${name}</p>
+                        <p>price: ${price}</p>
+                    `;
+                });
+        });
+
+        // 1 버튼을 누르면 데이터를 가지고 올 수 있는지 확인
+        const two = document.getElementById('two');
+        two.addEventListener('click', () => {
+            fetch('http://127.0.0.1:8000/items/2')
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                    const getdata = document.getElementById('data');
+                    const name = data['name'];
+                    const price = data['price'];
+                    getdata.innerHTML = `
+                        <p>name: ${name}</p>
+                        <p>price: ${price}</p>
+                    `;
+                });
+        });
+    </script>
+</body>
+</html>

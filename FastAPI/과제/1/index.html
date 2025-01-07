@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Page</title>
+</head>
+
+<body>
+    <h1>SPA</h1>
+    <header>Blog List</header>
+    <main>
+        <div class="blog_list"></div>
+        <button class="btn_blog_list">블로그 목록 불러오기</button>
+
+        <div class="blog_detail"></div>
+        <input type="text" class="blog_detail_id" placeholder="블로그 ID">
+        <button class="btn_blog_detail">블로그 상세 정보 불러오기</button>
+
+        <div class="blog_create"></div>
+        <input type="text" class="blog_create_title" placeholder="블로그 제목">
+        <input type="text" class="blog_create_author" placeholder="블로그 저자">
+        <input type="text" class="blog_create_content" placeholder="블로그 내용">
+        <button class="btn_blog_create">블로그 생성하기</button>
+
+        <div class="blog_update"></div>
+        <input type="text" class="blog_update_id" placeholder="블로그 ID">
+        <input type="text" class="blog_update_title" placeholder="블로그 제목">
+        <input type="text" class="blog_update_author" placeholder="블로그 저자">
+        <input type="text" class="blog_update_content" placeholder="블로그 내용">
+        <button class="btn_blog_update">블로그 수정하기</button>
+
+        <div class="blog_delete"></div>
+        <input type="text" class="blog_delete_id" placeholder="블로그 ID">
+        <button class="btn_blog_delete">블로그 삭제하기</button>
+    </main>
+
+    <script>
+        const blogList = document.querySelector(".blog_list");
+        const btnBlogList = document.querySelector(".btn_blog_list");
+
+        const blogDetail = document.querySelector(".blog_detail");
+        const blogDetailIdInput = document.querySelector(".blog_detail_id");
+        const btnBlogDetail = document.querySelector(".btn_blog_detail");
+
+        const blogCreateTitleInput = document.querySelector(".blog_create_title");
+        const blogCreateAuthorInput = document.querySelector(".blog_create_author");
+        const blogCreateContentInput = document.querySelector(".blog_create_content");
+        const btnBlogCreate = document.querySelector(".btn_blog_create");
+
+        const blogUpdateIdInput = document.querySelector(".blog_update_id");
+        const blogUpdateTitleInput = document.querySelector(".blog_update_title");
+        const blogUpdateAuthorInput = document.querySelector(".blog_update_author");
+        const blogUpdateContentInput = document.querySelector(".blog_update_content");
+        const btnBlogUpdate = document.querySelector(".btn_blog_update");
+
+        const blogDeleteIdInput = document.querySelector(".blog_delete_id");
+        const btnBlogDelete = document.querySelector(".btn_blog_delete");
+
+        btnBlogList.addEventListener("click", async () => {
+            const response = await fetch("http://127.0.0.1:8000/blogs");
+            const data = await response.json();
+            blogList.innerHTML = "<hr/>";
+            data.forEach(blog => {
+                blogList.innerHTML += `
+                <div>
+                    <h2>${blog.title}</h2>
+                    <p>${blog.author}</p>
+                    <p>${blog.content}</p>
+                    <hr/>
+                </div>
+                `
+            });
+        });
+        btnBlogDetail.addEventListener("click", async () => {
+            if (blogDetailIdInput.value === '') {
+                alert("블로그 ID를 입력해주세요.");
+                return;
+            }
+            const response = await fetch(`http://127.0.0.1:8000/blogs/${blogDetailIdInput.value}`);
+            const data = await response.json();
+            blogDetail.innerHTML = `
+            <div>
+                <h2>${data.title}</h2>
+                <p>${data.author}</p>
+                <p>${data.content}</p>
+            </div>
+            `
+        });
+        btnBlogCreate.addEventListener("click", async () => {
+            if (!blogCreateTitleInput.value) {
+                alert("블로그 제목을 입력해주세요.")
+                return;
+            }
+            if (!blogCreateAuthorInput.value) {
+                alert("블로그 저자를 입력해주세요.")
+                return;
+            }
+            await fetch("http://127.0.0.1:8000/blogs", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    title: blogCreateTitleInput.value,
+                    author: blogCreateAuthorInput.value,
+                    content: blogCreateContentInput.value
+                })
+            });
+        });
+        btnBlogUpdate.addEventListener("click", async () => {
+            await fetch(`http://127.0.0.1:8000/blogs/${blogUpdateIdInput.value}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    title: blogUpdateTitleInput.value,
+                    author: blogUpdateAuthorInput.value,
+                    content: blogUpdateContentInput.value
+                })
+            });
+        });
+        btnBlogDelete.addEventListener("click", async () => {
+            await fetch(`http://127.0.0.1:8000/blogs/${blogDeleteIdInput.value}`, {
+                method: "DELETE"
+            });
+        });
+    </script>
+</body>
+
+</html>

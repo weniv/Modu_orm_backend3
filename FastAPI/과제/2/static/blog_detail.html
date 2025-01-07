@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>블로그글 조회</title>
+    <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css">
+    <style>
+        body {
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+        }
+        h1 {
+            text-align: center;
+        }
+        .blog-card {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .blog-card h2 {
+            margin-top: 0;
+        }
+        .list-button, .edit-button, .delete-button {
+            display: block;
+            width: 150px;
+            margin: 10px auto;
+            padding: 10px;
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+            font-size: 16px;
+        }
+        .list-button:hover, .edit-button:hover, .delete-button:hover {
+            background-color: #0056b3;
+        }
+    </style>    
+</head>
+<body>
+    <h1>블로그글 조회</h1>
+
+    <!-- 블로그 목록 조회 -->
+    <button class="list-button" onclick="location.href='http://localhost:8000/static/blog_list.html'">블로그 목록 조회</button>
+
+    <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
+    <script>
+        // 블로그글 조회
+        const urlParams = new URLSearchParams(window.location.search);
+        const blogId = urlParams.get('id');
+
+        fetch(`http://localhost:8000/blogs/${blogId}`)
+            .then(response => response.json())
+            .then(blog => {
+                const blogElement = document.createElement('div');
+                blogElement.className = 'blog-card';
+                blogElement.innerHTML = `
+                    <h2>${blog.title}</h2>
+                    <div id="viewer"></div>
+                    <p>${blog.author}</p>
+                    <p>${blog.created_at}</p>
+                    <p>${blog.updated_at}</p>
+                    <button class="edit-button" onclick="location.href='http://localhost:8000/static/blog_edit.html?id=${blog.id}'">수정</button>
+                    <button class="delete-button" onclick="deleteBlog(${blog.id})">삭제</button>
+                `;
+                document.body.appendChild(blogElement);
+
+                // toastui Viewer 초기화
+                const viewer = new toastui.Editor.factory({
+                    el: document.querySelector('#viewer'),
+                    viewer: true,
+                    initialValue: blog.content
+                });
+            });
+
+        // 블로그글 삭제
+        function deleteBlog(blogId) {
+            fetch(`http://localhost:8000/blogs/${blogId}`, {
+                method: 'DELETE',
+            })
+            .then(response => {
+                if (response.ok) {
+                    alert('블로그글이 삭제되었습니다.');
+                    location.href = 'http://localhost:8000/static/blog_list.html';
+                } else {
+                    alert('블로그글 삭제에 실패했습니다.');
+                }
+            });
+        }
+    </script>
+</body>
+</html>

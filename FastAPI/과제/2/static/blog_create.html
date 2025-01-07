@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>블로그글 생성</title>
+    <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css">
+    <style>
+        body {
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        h1 {
+            text-align: center;
+        }
+        .form-container {
+            height: 100%;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        #editor {
+            flex: 1;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>블로그글 생성</h1>
+    <div class="form-container">
+        <input type="text" id="title" placeholder="제목">
+        <div id="editor"></div>
+        <button onclick="createBlog()">생성</button>
+    </div>
+
+    <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
+    <script>
+        // toastui 에디터 초기화
+        const editor = new toastui.Editor({
+            el: document.querySelector('#editor'),
+            height: '100%',
+            initialEditType: 'markdown',
+            previewStyle: 'vertical'
+        });
+
+        // 블로그글 생성
+        function createBlog() {
+            const title = document.getElementById('title').value;
+            const content = editor.getMarkdown();
+
+            fetch('http://localhost:8000/blogs/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    title: title,
+                    content: content,
+                }),
+            }) 
+            .then(response => response.json())
+            .then(data => {
+                location.href = `http://localhost:8000/static/blog_detail.html?id=${data.id}`;
+            });
+        }
+    </script>
+</body>
+</html>

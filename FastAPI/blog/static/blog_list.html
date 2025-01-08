@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+    <h1>MPA</h1>
+    <header>
+        blog list
+        <div id="auth-section">
+            <!-- 이 div는 JavaScript로 동적으로 내용이 변경됩니다 -->
+        </div>
+    </header>
+    <main></main>
+    <a href="http://127.0.0.1:8000/static/blog_create.html">블로그 생성하기</a>
+    <script>
+        const main = document.querySelector('main');
+        const authSection = document.querySelector('#auth-section');
+        const token = localStorage.getItem('token');
+
+        // 로그인/로그아웃 상태에 따른 버튼 표시
+        function updateAuthSection() {
+            if (token) {
+                authSection.innerHTML = `
+                    <button onclick="handleLogout()">로그아웃</button>
+                `;
+            } else {
+                authSection.innerHTML = `
+                    <a href="http://127.0.0.1:8000/static/login.html">로그인</a>
+                `;
+            }
+        }
+
+        // 로그아웃 처리
+        function handleLogout() {
+            localStorage.removeItem('token');
+            updateAuthSection();
+            window.location.reload(); // 페이지 새로고침
+        }
+
+        // 초기 로그인/로그아웃 버튼 상태 설정
+        updateAuthSection();
+
+        fetch('http://127.0.0.1:8000/blogs')
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                data.forEach(element => {
+                    main.innerHTML += `
+                        <a href=http://127.0.0.1:8000/static/blog_detail.html?id=${element.id}>
+                            <h2>${element.title}</h2>
+                            <p>${element.created_at}</p>
+                            <p>${element.updated_at}</p>
+                            <p>${element.id}</p>
+                            <p>${element.author}</p>
+                            <p>${element.content}</p>
+                        </a>
+                    `;
+                });
+            });
+    </script>
+</body>
+</html>

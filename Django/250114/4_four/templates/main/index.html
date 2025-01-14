@@ -1,0 +1,33 @@
+{% extends 'base/base.html '%}
+
+{% block contents %}
+<h2>자식 코드입니다</h2>
+<p>여기에 여러 템플릿 태그도 함께 들어갑니다.</p>
+<p>여기서 block 뒤에 오는 contents는 이름입니다. 여러분이 직접 명명하셔도 됩니다.</p>
+{% endblock %}
+
+{% block aa %}
+<section>
+    <h2>aa</h2>
+    <p>aa</p>
+</section>
+
+{% endblock %}
+
+{% block bb %}
+<section>
+    <h2>bb</h2>
+    <p>bb</p>
+</section>
+{% endblock %}
+
+{% block cc %}
+<script>
+    alert('cc');
+</script>
+{% endblock %}
+
+{% block dd %}
+let z = a + b;
+console.log(z);
+{% endblock %}

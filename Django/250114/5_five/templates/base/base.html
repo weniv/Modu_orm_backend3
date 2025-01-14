@@ -1,0 +1,33 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Threads</title>
+    {% comment %}
+    <!-- 작동은 하는데 보기가 불편합니다. 왜냐하면 외부 CSS, 외부 JS, 외부 이미지 등은 별도의 태그 -->
+    <style>
+        {% include 'base/custom.css' %}
+    </style>
+    <!-- 그래서 이 부분은 아래와 같은 형식으로 수정을 할겁니다. -->
+    <!-- 여기서 a.css 로드 못합니다. -->
+    <!-- <link rel="stylesheet" href="{% static 'a.css"> -->
+    {% endcomment %}
+    <link rel="stylesheet" href="{% static 'custom.css' %}">
+</head>
+<body>
+    
+    {% include 'base/header.html' %}
+
+    <div class="container">
+        {% block contents %}
+        {% endblock %}
+    </div>
+
+    {% include 'base/footer.html' %}
+
+    {% block script %}
+    {% endblock %}
+</body>
+</html>

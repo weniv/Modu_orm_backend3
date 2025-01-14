@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>hello world</title>
+</head>
+<body>
+    <!-- 주석입니다~~ -->
+    <!-- 
+
+        "name": "John",
+        "age": 25,
+        "is_true": True,
+        "l": [1, 2, 3, 4, 5],
+        "d": {"name": "John", "age": 25},
+
+    -->
+    {# 주석입니다!! #}
+    {{ name }}
+    {{ l }}
+    {{ d }}
+    {# <p>{{ l[0] }}</p> 일반 주석으로 하면 error가 계속 납니다! #}
+    {% comment %}
+        주석
+    {% endcomment %}
+    <p>{{ l.0 }}</p>
+    <p>{{ d.age }}</p>
+    <!-- 주의 -->
+
+    {% for i in l %}
+        <div>
+            <div>
+                <div>
+                    {# {{ forloop.counter }} #}
+                    {# {{ forloop.counter0 }} #}
+                    <!-- 스타일링 할 때 자주 사용합니다. 맨 위에 있는 요소에 margin이나 padding을 줄 때 -->
+                    {{ forloop.first }}
+                    {# {{ forloop.last }} #}
+                    <!-- 어? 들여쓰기는 어떻게 하지? -->
+                    <p>{{ i }}</p>
+                </div>
+            </div>
+        </div>
+        <!-- 그래서 endfor가 있는겁니다. endif도 있고요. -->
+    {% endfor %}
+
+    <!-- if, else -->
+    {% if is_true %}
+        <p>참이에요</p>
+    {% else %}
+        <p>거짓이에요</p>
+    {% endif %}
+
+    <!-- if, elif, else -->
+    {% if age < 20 %}
+        <p>20살 미만이에요</p>
+    {% elif age < 30 %}
+        <p>20살 이상 30살 미만이에요</p>
+    {% else %}
+        <p>30살 이상이에요</p>
+    {% endif %}
+    <script>
+        let age = {{ age }};
+        console.log(age);
+        let name = "내 이름은 {{ name }} 입니다.";
+        console.log(name);
+    </script>
+</body>
+</html>

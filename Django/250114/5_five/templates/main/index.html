@@ -1,0 +1,103 @@
+{% extends 'base/base.html' %}
+
+{% block contents %}
+<div class="post-form">
+    <textarea 
+        class="post-input" 
+        placeholder="무슨 생각을 하고 계신가요?"
+    ></textarea>
+    <button class="post-button" disabled>게시하기</button>
+    <div style="clear: both;"></div>
+</div>
+
+<div class="posts-container">
+    <!-- 게시물들이 여기에 동적으로 추가됩니다 -->
+</div>
+{% endblock %}
+
+{% block script %}
+<script>
+    // DOM 요소들
+    const postInput = document.querySelector('.post-input');
+    const postButton = document.querySelector('.post-button');
+    const postsContainer = document.querySelector('.posts-container');
+
+    // 게시물 입력 활성화/비활성화 처리
+    postInput.addEventListener('input', () => {
+        postButton.disabled = postInput.value.trim().length === 0;
+    });
+
+    // 게시물 생성 처리
+    postButton.addEventListener('click', () => {
+        const content = postInput.value.trim();
+        if (content) {
+            createPost(content);
+            postInput.value = '';
+            postButton.disabled = true;
+        }
+    });
+
+    // 게시물 HTML 생성 함수
+    function createPost(content) {
+        const post = document.createElement('div');
+        post.className = 'post';
+        
+        const timestamp = new Date().toLocaleString('ko-KR');
+        let likes = 0;
+        
+        post.innerHTML = `
+            <div class="post-header">
+                <div class="profile-image"></div>
+                <div>
+                    <div class="username">사용자</div>
+                    <small>${timestamp}</small>
+                </div>
+            </div>
+            <div class="post-content">${content}</div>
+            <div class="post-actions">
+                <button class="action-button like-button">
+                    ♡ <span class="likes-count">${likes}</span>
+                </button>
+                <button class="action-button">
+                    💬 댓글
+                </button>
+            </div>
+            <div class="comments-section">
+                <input type="text" class="comment-input" placeholder="댓글을 입력하세요...">
+            </div>
+        `;
+
+        // 좋아요 기능
+        const likeButton = post.querySelector('.like-button');
+        likeButton.addEventListener('click', () => {
+            likes++;
+            post.querySelector('.likes-count').textContent = likes;
+            likeButton.innerHTML = `♥ <span class="likes-count">${likes}</span>`;
+        });
+
+        // 댓글 입력 처리
+        const commentInput = post.querySelector('.comment-input');
+        commentInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter' && commentInput.value.trim()) {
+                const comment = document.createElement('div');
+                comment.className = 'comment';
+                comment.innerHTML = `
+                    <div class="profile-image"></div>
+                    <div>
+                        <div class="username">사용자</div>
+                        <div>${commentInput.value}</div>
+                    </div>
+                `;
+                post.querySelector('.comments-section').appendChild(comment);
+                commentInput.value = '';
+            }
+        });
+
+        // 최신 게시물이 위에 오도록 추가
+        postsContainer.insertBefore(post, postsContainer.firstChild);
+    }
+
+    // 초기 더미 데이터 생성
+    createPost("안녕하세요! Threads에 오신 것을 환영합니다. 🎉");
+</script>
+{% endblock %}

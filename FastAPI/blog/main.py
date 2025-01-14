@@ -13,6 +13,8 @@ from sqlalchemy import create_engine, Column, Integer, String, ForeignKey
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, Session, relationship
 
+from fastapi.security.api_key import APIKeyHeader
+
 
 # 정적 파일 디렉토리 생성
 if not os.path.exists("static"):
@@ -105,7 +107,10 @@ class Blog(BaseModel):
 # 데이터베이스 테이블 생성
 Base.metadata.create_all(bind=engine)
 
-app = FastAPI()
+auth_header = APIKeyHeader(name="Authorization", auto_error=False)
+app = FastAPI(
+    dependencies=[Depends(auth_header)],
+)
 
 # CORS 설정
 app.add_middleware(

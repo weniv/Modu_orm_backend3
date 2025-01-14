@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 기본 메타 태그 -->
+    <title>Weniv Timer | 위니브 타이머</title>
+    <meta name="description" content="위니브 타이머입니다. 쉬는시간, 회의시간을 보다 빠르게 설정하세요.">
+
+    <!-- Open Graph 메타 태그 -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="위니브 타이머 | Weniv time">
+    <meta property="og:description" content="손쉽게 회의 시간, 쉬는 시간을 설정하세요.">
+    <meta property="og:image" content="https://time.weniv.co.kr/og-image.png">
+    <meta property="og:url" content="https://time.weniv.co.kr">
+    <meta property="og:site_name" content="Weniv Timer">
+    
+    <!-- Twitter 카드 -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="위니브 타이머 - 손쉬운 시간 설정 툴">
+    <meta name="twitter:description" content="손쉽게 회의 시간, 쉬는 시간을 설정하세요.">
+    <meta name="twitter:image" content="https://time.weniv.co.kr/og-image.png">
+    
+    <!-- 추가 메타 태그 -->
+    <meta name="keywords" content="위니브, weniv, 타이머">
+    <meta name="author" content="Weniv">
+    <meta name="robots" content="index, follow">
+    
+    <!-- 캐노니컬 URL -->
+    <link rel="canonical" href="https://time.weniv.co.kr">
+</head>
+<body>
+
+    {% include 'base/header.html' %}
+
+    {% block contents %}
+    {% endblock %}
+
+    {% block aa %}
+    {% endblock %}
+
+    {% block bb %}
+    {% endblock %}
+
+    {% block cc %}
+    {% endblock %}
+
+    <script>
+        let a = 1;
+        console.log(a);
+        let b = 10;
+        console.log(b);
+        {% block dd %}
+        {% endblock %}
+    </script>
+</body>
+</html>

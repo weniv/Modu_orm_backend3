@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>hello world</title>
+</head>
+<body>
+    <header>
+        <h1>c.html</h1>
+    </header>
+    <main>
+        <p>hello world 테스트 중입니다.</p>
+        <!-- 템플릿 태그 문법이라고 합니다. Django에 탬플릿 태그 문법은 Jinja, Nunjucks와 같은 라이브러리에 영향을 많이 받았어요. -->
+        {% for i in data1 %}
+            <p>{{ i }}</p>
+        {% endfor %}
+        {% for i in data2 %}
+            <p>{{ i }}</p>
+        {% endfor %}
+    </main>
+    <footer></footer>
+</body>
+</html>

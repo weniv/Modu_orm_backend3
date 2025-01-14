@@ -1,0 +1,15 @@
+{% extends 'base/base.html '%}
+
+{% block contents %}
+    <p>블로그 목록</p>
+    {% for blog in blogs %}
+    {# <a href="{% url 'blog:detail' blog.pk %}"> #}
+    <!-- 이렇게 하면 안됩니다! 내일 가르쳐 드릴겁니다! -->
+    <a href="/blog/{{ blog.id }}">
+        <section>
+            <h2>{{ blog.title }}</h2>
+            <p>{{ blog.content }}</p>
+        </section>
+    </a>
+    {% endfor %}
+{% endblock %}

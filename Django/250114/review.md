@@ -22,3 +22,7 @@ STATIC_URL = "static/"
 STATIC_DIRS = [BASE_DIR / "static"]
 
 # config/urls.py
+
+```
+
+https://youtu.be/9XdNwwySsYQ

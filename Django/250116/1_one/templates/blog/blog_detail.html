@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>blog_list</title>
+</head>
+<body>
+    <section>
+        <h2>{{post.title}}</h2>
+        <p>{{post.content}}</p>
+        {% if post.image %}
+            <img src="{{post.image.url}}" alt="">
+        {% endif %}
+    </section>
+    <a href="{% url 'blog_list' %}">목록가기</a>
+</body>
+</html>

@@ -8,9 +8,9 @@ def blog_list(request):
     """
     (V)get, (V)q(querystring)
     """
-    if request.GET.get("q"):
-        q = request.GET["q"]
-        posts = Post.objects.filter(title__contains=q)
+    if request.GET.get("author"):
+        author = request.GET["author"]
+        posts = Post.objects.filter(author__username__contains=author)
     else:
         posts = Post.objects.all()
     context = {"posts": posts}

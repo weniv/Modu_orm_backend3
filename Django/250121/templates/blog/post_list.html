@@ -1,0 +1,48 @@
+<h2>Post List</h2>
+<p>환영합니다! {{ user.username }}!!</p>
+<p>환영합니다! {{ request.user.username }}!!</p>
+<p>환영합니다! {{ request.user.is_authenticated }}!!</p>
+
+{# 로그아웃은 post로 보내야 합니다. <a href="">로그아웃</a> 형식으로 보내면 안됩니다. #}
+
+<form action="{% url 'logout' %}" method="post">
+    {% csrf_token %}
+    <button type="submit">로그아웃</button>
+</form>
+
+
+<a href="{% url 'blog_write' %}">글쓰기</a>
+<form action="" method="get">
+    <input name="q" type="text">
+    <button type="submit">검색</button>
+</form>
+<ul>
+    {% for post in object_list %}
+    <li>
+        <a href="{% url 'blog_detail' post.pk %}">{{ post.title }}</a>
+    </li>
+    {% endfor %}
+</ul>
+
+<!-- 좀 더 자주사용하는 페이지네이션 -->
+{% if is_paginated %}
+<div>
+    {% if page_obj.has_previous %}
+        <a href="?page=1">처음</a>
+        <a href="?page={{ page_obj.previous_page_number }}">이전</a>
+    {% endif %}
+
+    {% for num in page_obj.paginator.page_range %}
+        {% if page_obj.number == num %}
+            <span>{{ num }}</span>
+        {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+            <a href="?page={{ num }}">{{ num }}</a>
+        {% endif %}
+    {% endfor %}
+
+    {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}">다음</a>
+        <a href="?page={{ page_obj.paginator.num_pages }}">마지막</a>
+    {% endif %}
+</div>
+{% endif %}

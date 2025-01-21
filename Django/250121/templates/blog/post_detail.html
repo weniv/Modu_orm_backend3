@@ -1,0 +1,21 @@
+<h2>Post Detail</h2>
+<h3>{{ object.title }}</h3>
+<p>{{ object.content }}</p>
+{% if object.head_image %}
+<img src="{{ object.head_image.url }}" alt="{{ object.head_image }}">
+{% endif %}
+{% if object.file_upload %}
+<a href="{{ object.file_upload.url }}">{{ object.file_upload }}</a>
+{% endif %}
+<p>{{ object.created_at }}</p>
+<p>{{ object.updated_at }}</p>
+
+{% if object.author == user %}
+<a href="{% url 'blog_edit' object.pk %}">수정</a>
+<form action="{% url 'blog_delete' object.pk %}" method="post">
+    {% csrf_token %}
+    <input type="submit" value="삭제">
+</form>
+{% endif %}
+
+<a href="{% url 'blog_list' %}">목록으로 가기</a>

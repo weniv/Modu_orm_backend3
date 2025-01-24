@@ -11,16 +11,16 @@ urlpatterns = [
     path('<int:pk>/update/', views.book_update, name='book-update'),
     path('<int:pk>/delete/', views.book_delete, name='book-delete'),
 
-    # 대출 관련
+    # 대출 관련/
     path('loans/', views.loan_list, name='loan-list'),
-    path('loans/user/', views.user_loan_list, name='user-loan-list'),
-    path('loans/create/<int:book_id>', views.loan_create, name='loan-create'),
+    # path('loans/user/', views.user_loan_list, name='user-loan-list'),
+    path('loans/create/<int:book_id>', views.loan_create,name='loan-create'),
     path('loans/return/<int:loan_id>', views.loan_return, name='loan-return'),
     path('loans/overdue/', views.overdue_list, name='overdue-list'),
 
-    # 예약 관련
+    # # 예약 관련
     path('reservations/', views.reservation_list, name='reservation-list'),
-    path('reservations/user/', views.user_reservation_list, name='user-reservation-list'),
+    # path('reservations/user/', views.user_reservation_list, name='user-reservation-list'),
     path('reservations/create/<int:book_id>', views.reservation_create, name='reservation-create'),
     path('reservations/cancel/<int:reservation_id>', views.reservation_cancel, name='reservation-cancel'),
 

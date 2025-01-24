@@ -56,9 +56,9 @@ class Loan(models.Model):
     status = models.CharField(
         max_length=10, choices=STATUS_CHOICES, default='ACTIVE', verbose_name='대출 상태')
 
-    loan_date = models.DateField(auto_now_add=True, verbose_name='대출일')
+    loan_date = models.DateTimeField(auto_now_add=True, verbose_name='대출일')
 
-    due_date = models.DateField(verbose_name='반납예정일')
+    due_date = models.DateTimeField(verbose_name='반납예정일')
 
     returned_date = models.DateField(blank=True, null=True, verbose_name='반납일')
 

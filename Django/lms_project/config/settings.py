@@ -118,6 +118,10 @@ USE_TZ = True
 
 AUTH_USER_MODEL = 'accounts.User'
 
+# 로그인/로그아웃 관련 설정
+LOGIN_URL = 'accounts:login'  # 로그인이 필요할 때 리다이렉트할 URL
+LOGIN_REDIRECT_URL = 'accounts:profile'  # 로그인 성공 후 리다이렉트할 URL
+LOGOUT_REDIRECT_URL = 'accounts:login'  # 로그아웃 후 리다이렉트할 URL
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/

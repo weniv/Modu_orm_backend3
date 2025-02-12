@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     "accounts",
     "blog",
 ]
+if DEBUG:
+    INSTALLED_APPS += ["debug_toolbar"]
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -52,6 +54,9 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
+
+if DEBUG:
+    MIDDLEWARE = ["debug_toolbar.middleware.DebugToolbarMiddleware"] + MIDDLEWARE
 
 ROOT_URLCONF = "config.urls"
 
@@ -83,6 +88,10 @@ DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
         "NAME": BASE_DIR / "db.sqlite3",
+        # "USER": "",
+        # "PASSWORD": "",
+        # "HOST": "",
+        # "PORT": "",
     }
 }
 
@@ -109,9 +118,10 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
-LANGUAGE_CODE = "en-us"
+LANGUAGE_CODE = "ko-kr"  # 국제화. 디폴트 언어
 
 TIME_ZONE = "UTC"
+# TIME_ZONE = "Asia/Seoul"  # UTC+9:00
 
 USE_I18N = True
 
@@ -127,3 +137,7 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+
+# 내부 IP 설정 (장고 기본 설정) -> debug toolbar에서도 활용
+INTERNAL_IPS = ["127.0.0.1"]

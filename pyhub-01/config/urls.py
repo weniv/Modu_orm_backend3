@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.shortcuts import redirect
 from django.urls import include, path
 from django.views.generic import RedirectView
+from debug_toolbar.toolbar import debug_toolbar_urls
 
 # 관심사의 분리
 # from blog import views
@@ -18,3 +19,6 @@ urlpatterns = [
     path("blog/", include("blog.urls")),
     path("", root),
 ]
+
+
+urlpatterns += debug_toolbar_urls()

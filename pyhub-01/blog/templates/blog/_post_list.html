@@ -1,0 +1,14 @@
+<h2>현재 페이지 :: {{ page_obj }}</h2>
+
+{# POST를 하는 것이 맞지만, 일단 간결한 구현 #}
+{% include "blog/_liked.html" %}
+
+{% for post in post_list %}
+<li>#{{ post.pk }}. {{ post.title }}</li>
+{% endfor %}
+
+{% if page_obj.next_page_number %}
+    <button hx-get="?page={{ page_obj.next_page_number }}"
+            hx-trigger="revealed"
+            hx-swap="afterend">다음 페이지</button>
+{% endif %}

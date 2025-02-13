@@ -41,11 +41,13 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "accounts",
     "blog",
+    "django_htmx",
 ]
 if DEBUG:
     INSTALLED_APPS += ["debug_toolbar"]
 
 MIDDLEWARE = [
+    "django_htmx.middleware.HtmxMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",

@@ -1,5 +1,6 @@
 # from django.http import HttpRequest, HttpResponse
 # from django.shortcuts import render
+from django.http import JsonResponse
 from django.shortcuts import render
 from django.views.generic import ListView
 
@@ -71,20 +72,51 @@ class PostListView(ListView):
 
         return qs
 
+    def get_template_names(self):
+        if self.request.htmx:
+            return ["blog/_post_list.html"]
+        return super().get_template_names()
+
 
 index = PostListView.as_view()
+
+
+def like(request):
+    liked = request.GET.get("liked", "1") == "1"
+    # return JsonResponse({"liked": True})
+    return render(
+        request,
+        "blog/_liked.html",
+        {
+            "liked": liked,
+        },
+    )
 
 
 # def index(request):
 #     qs = Post.objects.all()  # 조회할 준비 (Lazy)
 #
-#     page = int(request.GET.get('page', 1))
+#     page = int(request.GET.get("page", 1))
 #     paginate_by = 10
-#     start_index = (page -1 ) * paginate_by
+#     start_index = (page - 1) * paginate_by
 #     end_index = page * paginate_by
 #     qs = qs[start_index:end_index]
 #
+#     # htmx를 통한 요청이라면 -> 레이아웃은 빼고, 컨텐츠만 렌더링
+#     # else: 레이아웃 + 컨텐츠
+#     # htmx 요청인지를 구별 !!!
+#
+#     # print("request.htmx :", bool(request.htmx))
+#     if request.htmx:
+#         template_name = "blog/_post_list.html"
+#     else:
+#         template_name = "blog/index.html"
+#
 #     # qs = qs.order_by('-pk')  # 일관된 정렬
-#     return render(request, "blog/index.html", {
-#         "post_list": qs,
-#     })
+#     return render(
+#         request,
+#         template_name,
+#         {
+#             "post_list": qs,
+#         },
+#     )

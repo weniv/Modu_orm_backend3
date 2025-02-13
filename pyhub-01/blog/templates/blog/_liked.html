@@ -1,0 +1,13 @@
+{% if liked %}
+    <button
+        hx-get="/blog/like/?liked=0"
+        hx-trigger="click"
+        hx-swap="outerHTML"
+    >좋아요 취소</button>
+{% else %}
+    <button
+        hx-get="/blog/like/?liked=1"
+        hx-trigger="click"
+        hx-swap="outerHTML"
+    >좋아요</button>
+{% endif %}

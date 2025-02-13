@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>melon</title>
+</head>
+
+<body>
+
+    <h1>melon</h1>
+
+    <table>
+        <thead>
+            <th>곡명</th>
+            <th>글자수</th>
+        </thead>
+        <tbody>
+            {% for song in song_list %}
+            <tr>
+                <td>{{ song.title }}</td>
+                <td>{{ song.title_length }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</body>
+
+</html>

@@ -1,0 +1,25 @@
+{# blog/templates/blog/post_form.html  #}
+
+{% extends "blog/base.html" %}
+
+{% block content %}
+    <h2>
+        {% if not post %}
+            새 글 쓰기
+        {% else %}
+            수정하기
+        {% endif %}
+    </h2>
+
+    <form action="" method="post" novalidate>
+        {% csrf_token %}
+        <table>
+            {{ form.as_table }}
+        </table>
+        <input type="submit" />
+    </form>
+
+    <hr />
+    <a href="{% url 'blog:post_list' %}">List</a>
+    {% if post %}<a href="{% url 'blog:post_detail' post.pk %}">Back</a>{% endif %}
+{% endblock %}

@@ -1,0 +1,26 @@
+{# blog/templates/blog/post_list.html  #}
+
+{% extends "blog/base.html" %}
+
+{% block content %}
+    <table>
+    <tbody>
+    {% for post in post_list %}
+        <tr>
+            <td>
+                <a href="{% url 'blog:post_detail' post.pk %}">
+                    {{ post.title }}
+                </a>
+            </td>
+        </tr>
+    {% empty %}
+        <tr>
+            <td>empty</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+    </table>
+
+    <hr />
+    <a href="{% url 'blog:post_new' %}">New</a>
+{% endblock %}

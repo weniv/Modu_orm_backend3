@@ -3,3 +3,7 @@ djangorestframework
 
 faker
 tqdm
+
+pandas
+openpyxl
+wordcloud

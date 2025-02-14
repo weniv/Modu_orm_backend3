@@ -12,7 +12,7 @@ from .serializers import PostListSerializer, PostDetailSerializer
 #     return JsonResponse(serializer.data, safe=False)
 
 post_list = ListAPIView.as_view(
-    queryset=Post.objects.all().defer("content").select_related("author"),
+    queryset=PostListSerializer.get_optimized_queryset(),
     serializer_class=PostListSerializer,
 )
 
@@ -23,7 +23,6 @@ post_list = ListAPIView.as_view(
 
 
 post_detail = RetrieveAPIView.as_view(
-    queryset=Post.objects.all(),
+    queryset=PostDetailSerializer.get_optimized_queryset(),
     serializer_class=PostDetailSerializer,
 )
-

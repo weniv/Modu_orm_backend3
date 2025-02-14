@@ -1,4 +1,5 @@
 from django.contrib.auth import get_user_model
+from django.db.models import QuerySet
 from rest_framework import serializers
 from .models import Post, Comment
 
@@ -26,6 +27,10 @@ class PostListSerializer(serializers.ModelSerializer):
         model = Post
         fields = ["pk", "title", "author"]
 
+    @staticmethod
+    def get_optimized_queryset():
+        return Post.objects.all().defer("content").select_related("author")
+
 
 class CommentSerializer(serializers.ModelSerializer):
     class Meta:
@@ -42,6 +47,10 @@ class PostDetailSerializer(serializers.ModelSerializer):
     #     many=True, source="comment_set")
     comment_list = CommentSerializer(
         many=True, read_only=True, source="comment_set")
+
+    @staticmethod
+    def get_optimized_queryset():
+        return Post.objects.all()
 
     class Meta:
         model = Post

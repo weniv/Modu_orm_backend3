@@ -6,13 +6,31 @@ from django.shortcuts import render, get_object_or_404, redirect
 
 from .forms import PostForm
 from .models import Post
+from .generics import View
 
 
-def post_list(request: HttpRequest) -> HttpResponse:
-    post_qs = Post.objects.all()
-    return render(request=request, template_name="blog/post_list.html", context={
-        "post_list": post_qs,
-    })
+class PostListView(View):
+    model = Post  # 클래스 변수를 설정
+
+    def get_queryset(self):
+        # # 부모의 쿼리셋을 이어받아서 수행
+        # qs = super().get_queryset()
+        # # qs = qs.filter(...)
+        # return qs
+
+        # 자식이 직접 쿼리셋을 생성
+        return Post.objects.all()
+
+
+post_list = PostListView.as_view()
+
+# post_list = View.as_view(model=Post)
+
+# def post_list(request: HttpRequest) -> HttpResponse:
+#     post_qs = Post.objects.all()
+#     return render(request=request, template_name="blog/post_list.html", context={
+#         "post_list": post_qs,
+#     })
 
 
 def post_detail(request: HttpRequest, pk: int) -> HttpResponse:

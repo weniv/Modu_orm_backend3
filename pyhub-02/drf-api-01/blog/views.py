@@ -6,10 +6,10 @@ from django.shortcuts import render, get_object_or_404, redirect
 
 from .forms import PostForm
 from .models import Post
-from .generics import View
+from .generics import View, APIView
 
 
-class PostListView(View):
+class PostListView(APIView):
     model = Post  # 클래스 변수를 설정
 
     def get_queryset(self):

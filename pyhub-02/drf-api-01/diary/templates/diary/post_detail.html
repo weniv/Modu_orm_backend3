@@ -6,6 +6,7 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>post detail</title>
+    <script src="//unpkg.com/htmx.org@2.0.4"></script>
 </head>
 <body>
 
@@ -15,9 +16,13 @@
 {#    {{ post.comment_set.all }}#}
 {#    {{ comment_list }}#}
 
-    <div id="comment-list"></div>
+    <div hx-get="/diary/1/comments/"
+         hx-trigger="load">
+        Loading comments ...
+    </div>
 
     {# 웹 : JS를 통해 댓글 렌더링 : => fetch => HTML (HTMX), JSON #}
+    {% comment %}
     <script>
         async function loadCommentList() {
           const res = await fetch("/diary/1/comments/");;
@@ -26,6 +31,7 @@
         }
         loadCommentList();
     </script>
+    {% endcomment %}
 
     {# 앱 (android/ios) : 네이티브 UI를 통한 렌더링 => JSON #}
 

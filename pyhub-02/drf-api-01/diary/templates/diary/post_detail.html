@@ -12,10 +12,20 @@
     {{ post.content }}
 
     {# HTML로서 댓글 직접 렌더링 #}
-    {{ post.comment_set.all }}
-    {{ comment_list }}
+{#    {{ post.comment_set.all }}#}
+{#    {{ comment_list }}#}
 
-    {# 웹 : JS를 통해 댓글 렌더링 : => fetch => HTML, JSON #}
+    <div id="comment-list"></div>
+
+    {# 웹 : JS를 통해 댓글 렌더링 : => fetch => HTML (HTMX), JSON #}
+    <script>
+        async function loadCommentList() {
+          const res = await fetch("/diary/1/comments/");;
+          const html = await res.text();  // 페이지 소스보기 했을 때의 응답 내용
+          document.querySelector("#comment-list").innerHTML = html;
+        }
+        loadCommentList();
+    </script>
 
     {# 앱 (android/ios) : 네이티브 UI를 통한 렌더링 => JSON #}
 

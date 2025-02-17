@@ -1,0 +1,7 @@
+<h2>댓글</h2>
+
+{% for comment in comment_list %}
+    <p>{{ comment.message }} at {{ comment.created_at }}</p>
+{% empty %}
+    <p>댓글이 없습니다.</p>
+{% endfor %}

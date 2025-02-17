@@ -1,3 +1,32 @@
 from django.db import models
 
-# Create your models here.
+
+class Post(models.Model):
+    class Status(models.TextChoices):
+        DRAFT = "draft", "초안"
+        PUBLISHED = "published", "Published"
+        DELETED = "deleted", "Deleted"
+
+    content = models.TextField()
+    status = models.CharField(
+        choices=Status.choices, # 선택지를 제한 !!!
+        # default="draft",
+        default=Status.DRAFT,
+        max_length=20,
+    )
+
+    # is_published = models.BooleanField()  # 2가지 값을 가지는 상태
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+
+class Comment(models.Model):
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    # post = models.ForeignKey(Post, null=True, on_delete=models.SET_NULL)
+    # post = models.ForeignKey(Post, default=1, on_delete=models.SET_DEFAULT)
+
+    message = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+

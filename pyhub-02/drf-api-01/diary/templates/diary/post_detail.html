@@ -16,10 +16,30 @@
 {#    {{ post.comment_set.all }}#}
 {#    {{ comment_list }}#}
 
-    <div hx-get="/diary/1/comments/"
+    /diary/{{ post.pk }}/comments/
+    {% url "comment-list" post.pk %}
+
+    <div hx-get="{% url 'comment-list' post.pk %}?format=json"
          hx-trigger="load">
         Loading comments ...
     </div>
+
+    <div id="comment-list">Now Loading</div>
+    <script>
+        async function loadCommentList() {
+          const res = await fetch("{% url 'comment-list' post.pk %}?format=json");;
+          const jsonString = await res.text();  // 페이지 소스보기 했을 때의 응답 내용
+          const commentList = JSON.parse(jsonString); // 객체화 (Deserialize)
+          console.log(commentList);
+
+          // 별도의 JS 기반의 템플릿 엔진을 쓰는 것이 좋다. or UI 라이브러리 (리액트)
+          const _html = commentList.map(function(comment) {
+            return `<div>${comment.message} at ${comment.created_at}</div>`;
+          }).join("");
+          document.querySelector("#comment-list").innerHTML = _html;
+        }
+        loadCommentList();
+    </script>
 
     {# 웹 : JS를 통해 댓글 렌더링 : => fetch => HTML (HTMX), JSON #}
     {% comment %}

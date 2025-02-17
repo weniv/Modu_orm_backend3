@@ -1,3 +1,4 @@
+from django.http import JsonResponse
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView
 
@@ -27,6 +28,18 @@ class CommentListView(ListView):
         qs = super().get_queryset()
         qs = qs.filter(post__pk=post_pk)
         return qs
+
+    # 최종적으로 context 사전값 기반에서 HttpResponse를 생성하는 함수
+    def render_to_response(self, context, **response_kwargs):
+        fmt = self.request.GET.get("format")
+        qs = context["comment_list"]
+        if fmt == "json":
+            return JsonResponse(list(qs.values()), safe=False)
+        # TODO: openpyxl 라이브러리를 직접 활용하여, 쿼리셋 데이터로 엑셀 파일 생성 및 다운로드
+        # elif fmt == "xlsx":
+        #     pass
+        else:
+            return super().render_to_response(context, **response_kwargs)
 
 
 comment_list = CommentListView.as_view()

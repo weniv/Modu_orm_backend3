@@ -1,15 +1,27 @@
 from django.http import JsonResponse, HttpRequest
+from django.shortcuts import get_object_or_404
 from rest_framework.decorators import api_view
 from rest_framework.request import Request
 from rest_framework.response import Response
 
-from diary.models import Comment
+from diary.models import Post, Comment
 from diary.serializers import PostSerializer, CommentSerializer
 
 
 @api_view(["POST"])
 def post_new(request: Request) -> Response:
     serializer = PostSerializer(data=request.data)
+    if serializer.is_valid():
+        post = serializer.save()
+        return Response(serializer.data)
+    return Response(serializer.errors)
+
+
+@api_view(["PUT"])
+def post_edit(request: Request, pk) -> Response:
+    post = get_object_or_404(Post, pk=pk)
+
+    serializer = PostSerializer(data=request.data, instance=post)
     if serializer.is_valid():
         post = serializer.save()
         return Response(serializer.data)

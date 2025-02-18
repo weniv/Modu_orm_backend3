@@ -14,6 +14,7 @@ urlpatterns = [
 
 urlpatterns_api_v1 = [
     path("posts/new/", api.post_new, name="post-new"),
+    path("posts/<int:pk>/edit/", api.post_edit, name="post-edit"),
     path("posts/<int:post_pk>/comments/", api.comment_list, name="comment-list"),
 ]
 

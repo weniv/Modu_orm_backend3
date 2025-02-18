@@ -30,6 +30,7 @@ post_detail = DetailView.as_view(model=Post)
 
 def post_new(request):
     if request.method == "POST":
+        # form = PostForm(request.POST, request.FILES)
         form = PostForm(data=request.POST, files=request.FILES)
         if form.is_valid():
             # form.cleaned_data

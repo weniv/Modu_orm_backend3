@@ -1,7 +1,19 @@
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpRequest
+from rest_framework.decorators import api_view
+from rest_framework.request import Request
+from rest_framework.response import Response
 
 from diary.models import Comment
-from diary.serializers import CommentSerializer
+from diary.serializers import PostSerializer, CommentSerializer
+
+
+@api_view(["POST"])
+def post_new(request: Request) -> Response:
+    serializer = PostSerializer(data=request.data)
+    if serializer.is_valid():
+        post = serializer.save()
+        return Response(serializer.data)
+    return Response(serializer.errors)
 
 
 def comment_list(request, post_pk):
@@ -13,7 +25,7 @@ def comment_list(request, post_pk):
 
     # QuerySet -> Python 기본 데이터 타입 by Serializer
     serializer = CommentSerializer(
-        qs,  # QuerySet or Model Instance
+        instance=qs,  # QuerySet or Model Instance
         many=True,  # QuerySet인 경우 True
     )
     return JsonResponse(serializer.data, safe=False)

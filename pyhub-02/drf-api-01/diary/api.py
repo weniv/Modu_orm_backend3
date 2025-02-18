@@ -1,7 +1,12 @@
 from django.http import JsonResponse, HttpRequest
 from django.shortcuts import get_object_or_404
 from rest_framework.decorators import api_view
-from rest_framework.generics import CreateAPIView, UpdateAPIView, DestroyAPIView
+from rest_framework.generics import (
+    CreateAPIView,
+    UpdateAPIView,
+    DestroyAPIView,
+    ListAPIView,
+)
 from rest_framework.request import Request
 from rest_framework.response import Response
 
@@ -57,16 +62,30 @@ class PostDestroyAPIView(DestroyAPIView):
 post_delete = PostDestroyAPIView.as_view()
 
 
-def comment_list(request, post_pk):
-    qs = Comment.objects.all()
-    qs = qs.filter(post__pk=post_pk)
+# def comment_list(request, post_pk):
+#     qs = Comment.objects.all()
+#     qs = qs.filter(post__pk=post_pk)
+#
+#     # 커스텀이 어려운 쿼리셋 만을 통한 파이썬 기본 데이터 타입 변환
+#     # list(qs.values())
+#
+#     # QuerySet -> Python 기본 데이터 타입 by Serializer
+#     serializer = CommentSerializer(
+#         instance=qs,  # QuerySet or Model Instance
+#         many=True,  # QuerySet인 경우 True
+#     )
+#     return JsonResponse(serializer.data, safe=False)
 
-    # 커스텀이 어려운 쿼리셋 만을 통한 파이썬 기본 데이터 타입 변환
-    # list(qs.values())
 
-    # QuerySet -> Python 기본 데이터 타입 by Serializer
-    serializer = CommentSerializer(
-        instance=qs,  # QuerySet or Model Instance
-        many=True,  # QuerySet인 경우 True
-    )
-    return JsonResponse(serializer.data, safe=False)
+class CommentListAPIView(ListAPIView):
+    queryset = Comment.objects.all()
+    serializer_class = CommentSerializer
+
+    def get_queryset(self):
+        post_pk = self.kwargs["post_pk"]
+        qs = super().get_queryset()
+        qs = qs.filter(post__pk=post_pk)
+        return qs
+
+
+comment_list = CommentListAPIView.as_view()

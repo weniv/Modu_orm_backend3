@@ -1,7 +1,9 @@
 from django.http import JsonResponse
-from django.shortcuts import render
-from django.views.generic import ListView, DetailView
+from django.shortcuts import render, redirect
+from django.urls import reverse_lazy
+from django.views.generic import ListView, DetailView, CreateView
 
+from diary.forms import PostForm
 from diary.models import Post, Comment
 
 
@@ -18,6 +20,27 @@ post_list = PostListView.as_view()
 
 post_detail = DetailView.as_view(model=Post)
 # context_data로서 comment_list 쿼리셋을 추가
+
+
+# post_new = CreateView.as_view(
+#     model=Post,
+#     form_class=PostForm,
+#     success_url=reverse_lazy("diary:post-list"),
+# )
+
+def post_new(request):
+    if request.method == "POST":
+        form = PostForm(data=request.POST, files=request.FILES)
+        if form.is_valid():
+            # form.cleaned_data
+            post = form.save()
+            return redirect("diary:post-detail", post.pk)
+    else:
+        form = PostForm()
+
+    return render(request, "diary/post_form.html", {
+        "form": form,
+    })
 
 
 class CommentListView(ListView):

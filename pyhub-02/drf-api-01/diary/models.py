@@ -8,6 +8,7 @@ class Post(models.Model):
         DELETED = "deleted", "Deleted"
 
     content = models.TextField()
+    photo = models.ImageField(blank=True)  # Pillow 라이브러리 설치가 필요
     status = models.CharField(
         choices=Status.choices, # 선택지를 제한 !!!
         # default="draft",

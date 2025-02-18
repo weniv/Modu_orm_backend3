@@ -1,5 +1,5 @@
 from django.http import JsonResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView
 
@@ -42,6 +42,30 @@ def post_new(request):
     return render(request, "diary/post_form.html", {
         "form": form,
     })
+
+
+def post_edit(request, pk):
+    # try:
+    #     post = Post.objects.get(pk=pk)  # Post.DoesNotExist 예외 -> 500 에러
+    # except Post.DoesNotExist:
+    #     raise Http404
+
+    post = get_object_or_404(Post, pk=pk)
+
+    if request.method == "POST":
+        # form = PostForm(request.POST, request.FILES)
+        form = PostForm(data=request.POST, files=request.FILES, instance=post)
+        if form.is_valid():
+            # form.cleaned_data
+            post = form.save()
+            return redirect("diary:post-detail", post.pk)
+    else:
+        form = PostForm(instance=post)
+
+    return render(request, "diary/post_form.html", {
+        "form": form,
+    })
+
 
 
 class CommentListView(ListView):

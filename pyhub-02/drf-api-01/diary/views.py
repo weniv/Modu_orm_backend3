@@ -109,6 +109,13 @@ class CommentCreateView(CreateView):
 
     # success_url = reverse_lazy("diary:post-detail", post.pk)
 
+    def get_context_data(self, **kwargs):
+        context_data = super().get_context_data(**kwargs)
+        context_data["action_url"] = reverse(
+            "diary:comment-new", args=[self.kwargs["post_pk"]]
+        )
+        return context_data
+
     def form_valid(self, form):
         post = get_object_or_404(Post, pk=self.kwargs["post_pk"])
 

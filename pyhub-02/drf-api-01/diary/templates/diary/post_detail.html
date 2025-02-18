@@ -18,7 +18,11 @@
 
     <hr />
 
-    <a href="{% url 'diary:comment-new' post.pk %}">댓글 쓰기</a>
+    <a hx-get="{% url 'diary:comment-new' post.pk %}"
+       hx-target="#comment-form"
+    >댓글 쓰기</a>
+
+    <div id="comment-form"></div>
 
     <div hx-get="{% url 'diary:api-v1:comment-list' post.pk %}?format=json"
          hx-trigger="load">

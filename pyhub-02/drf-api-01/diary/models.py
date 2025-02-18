@@ -21,6 +21,11 @@ class Post(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    def soft_delete(self):
+        self.content = ""
+        self.status = self.Status.DELETED
+        self.save()
+
 
 class Comment(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)

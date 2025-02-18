@@ -1,7 +1,7 @@
 from django.http import JsonResponse, HttpRequest
 from django.shortcuts import get_object_or_404
 from rest_framework.decorators import api_view
-from rest_framework.generics import CreateAPIView, UpdateAPIView
+from rest_framework.generics import CreateAPIView, UpdateAPIView, DestroyAPIView
 from rest_framework.request import Request
 from rest_framework.response import Response
 
@@ -41,6 +41,20 @@ class PostUpdateAPIView(UpdateAPIView):
 
 
 post_edit = PostUpdateAPIView.as_view()
+
+
+class PostDestroyAPIView(DestroyAPIView):
+    queryset = Post.objects.exclude(status=Post.Status.DELETED)  # 범위
+
+    # Soft Delete
+    def perform_destroy(self, instance: Post):
+        # instance.content = ""
+        # instance.status = Post.Status.DELETED
+        # instance.save()  # 모든 필드 값을 데이터베이스에 UPDATE 시도
+        instance.soft_delete()
+
+
+post_delete = PostDestroyAPIView.as_view()
 
 
 def comment_list(request, post_pk):

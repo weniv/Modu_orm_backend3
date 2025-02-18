@@ -37,3 +37,9 @@ PUT {{BASE_URL}}/diary/api/v1/posts/1/edit/
 Content-Type: application/x-www-form-urlencoded
 
 content=modified content
+
+
+### 포스팅 삭제 요청
+
+DELETE {{BASE_URL}}/diary/api/v1/posts/1/delete/
+Content-Type: application/x-www-form-urlencoded

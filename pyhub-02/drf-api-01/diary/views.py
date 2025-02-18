@@ -1,9 +1,9 @@
 from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.views.generic import ListView, DetailView, CreateView
 
-from diary.forms import PostForm
+from diary.forms import PostForm, CommentForm
 from diary.models import Post, Comment
 
 
@@ -100,3 +100,27 @@ class CommentListView(ListView):
 
 
 comment_list = CommentListView.as_view()
+
+
+class CommentCreateView(CreateView):
+    model = Comment
+    form_class = CommentForm
+    template_name = "diary/form.html"
+
+    # success_url = reverse_lazy("diary:post-detail", post.pk)
+
+    def form_valid(self, form):
+        post = get_object_or_404(Post, pk=self.kwargs["post_pk"])
+
+        # form 인스턴스 내부에 .instance 속성이 있습니다.
+        comment = form.save(commit=False)  # instance.save() 호출없이 instance 반환
+        comment.post = post
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        # super().get_success_url()
+        created_comment = self.object  # 저장된 모델 인스턴스
+        return reverse("diary:post-detail", args=[created_comment.post.pk])
+
+
+comment_new = CommentCreateView.as_view()

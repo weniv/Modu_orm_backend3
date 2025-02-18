@@ -10,6 +10,7 @@ urlpatterns = [
     path("new/", views.post_new, name="post-new"),
     path("<int:pk>/edit/", views.post_edit, name="post-edit"),
     path("<int:post_pk>/comments/", views.comment_list, name="comment-list"),
+    path("<int:post_pk>/comments/new/", views.comment_new, name="comment-new"),
 ]
 
 urlpatterns_api_v1 = [

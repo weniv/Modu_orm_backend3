@@ -1,6 +1,7 @@
 from django.http import JsonResponse, HttpRequest
 from django.shortcuts import get_object_or_404
 from rest_framework.decorators import api_view
+from rest_framework.generics import CreateAPIView, UpdateAPIView
 from rest_framework.request import Request
 from rest_framework.response import Response
 
@@ -8,24 +9,38 @@ from diary.models import Post, Comment
 from diary.serializers import PostSerializer, CommentSerializer
 
 
-@api_view(["POST"])
-def post_new(request: Request) -> Response:
-    serializer = PostSerializer(data=request.data)
-    if serializer.is_valid():
-        post = serializer.save()
-        return Response(serializer.data)
-    return Response(serializer.errors)
+
+# @api_view(["POST"])
+# def post_new(request: Request) -> Response:
+#     serializer = PostSerializer(data=request.data)
+#     if serializer.is_valid():
+#         post = serializer.save()
+#         return Response(serializer.data)
+#     return Response(serializer.errors)
 
 
-@api_view(["PUT"])
-def post_edit(request: Request, pk) -> Response:
-    post = get_object_or_404(Post, pk=pk)
+class PostCreateAPIView(CreateAPIView):
+    serializer_class = PostSerializer
 
-    serializer = PostSerializer(data=request.data, instance=post)
-    if serializer.is_valid():
-        post = serializer.save()
-        return Response(serializer.data)
-    return Response(serializer.errors)
+post_new = PostCreateAPIView.as_view()
+
+# @api_view(["PUT"])
+# def post_edit(request: Request, pk) -> Response:
+#     post = get_object_or_404(Post, pk=pk)
+#
+#     serializer = PostSerializer(data=request.data, instance=post)
+#     if serializer.is_valid():
+#         post = serializer.save()
+#         return Response(serializer.data)
+#     return Response(serializer.errors)
+
+
+class PostUpdateAPIView(UpdateAPIView):
+    queryset = Post.objects.exclude(status=Post.Status.DELETED)  # 범위
+    serializer_class = PostSerializer
+
+post_edit = PostUpdateAPIView.as_view()
+
 
 
 def comment_list(request, post_pk):

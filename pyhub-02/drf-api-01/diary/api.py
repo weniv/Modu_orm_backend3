@@ -9,7 +9,6 @@ from diary.models import Post, Comment
 from diary.serializers import PostSerializer, CommentSerializer
 
 
-
 # @api_view(["POST"])
 # def post_new(request: Request) -> Response:
 #     serializer = PostSerializer(data=request.data)
@@ -21,6 +20,7 @@ from diary.serializers import PostSerializer, CommentSerializer
 
 class PostCreateAPIView(CreateAPIView):
     serializer_class = PostSerializer
+
 
 post_new = PostCreateAPIView.as_view()
 
@@ -39,8 +39,8 @@ class PostUpdateAPIView(UpdateAPIView):
     queryset = Post.objects.exclude(status=Post.Status.DELETED)  # 범위
     serializer_class = PostSerializer
 
-post_edit = PostUpdateAPIView.as_view()
 
+post_edit = PostUpdateAPIView.as_view()
 
 
 def comment_list(request, post_pk):

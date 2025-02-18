@@ -15,6 +15,7 @@ class PostListView(ListView):
     model = Post
     # template_name = "..."
 
+
 post_list = PostListView.as_view()
 
 
@@ -28,6 +29,7 @@ post_detail = DetailView.as_view(model=Post)
 #     success_url=reverse_lazy("diary:post-list"),
 # )
 
+
 def post_new(request):
     if request.method == "POST":
         # form = PostForm(request.POST, request.FILES)
@@ -39,9 +41,13 @@ def post_new(request):
     else:
         form = PostForm()
 
-    return render(request, "diary/post_form.html", {
-        "form": form,
-    })
+    return render(
+        request,
+        "diary/post_form.html",
+        {
+            "form": form,
+        },
+    )
 
 
 def post_edit(request, pk):
@@ -62,10 +68,13 @@ def post_edit(request, pk):
     else:
         form = PostForm(instance=post)
 
-    return render(request, "diary/post_form.html", {
-        "form": form,
-    })
-
+    return render(
+        request,
+        "diary/post_form.html",
+        {
+            "form": form,
+        },
+    )
 
 
 class CommentListView(ListView):

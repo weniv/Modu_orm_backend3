@@ -7,3 +7,5 @@ tqdm
 pandas
 openpyxl
 wordcloud
+
+django-cors-headers

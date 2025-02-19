@@ -10,22 +10,38 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
+from environ import Env
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+env = Env()
+
+ENV_PATH = BASE_DIR / ".env"
+if ENV_PATH.is_file():
+
+    # open("hello.txt", "rt",  encoding="utf8").read()  # 한글 윈도우 : cp949, 맥/리눅스 : utf8
+
+    # with ENV_PATH.open("rt", encoding="utf8") as f:
+    #     env.read_env(f, overwrite=True)
+
+    env.read_env(ENV_PATH, overwrite=True)
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-++0w0t9*72(0*1^g0)(r70_qqqor+dke!e-35k_s%z=p9qhc2p"
+SECRET_KEY = env.str(
+    "SECRET_KEY",
+    default="django-insecure-++0w0t9*72(0*1^g0)(r70_qqqor+dke!e-35k_s%z=p9qhc2p",
+)
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env.bool("DEBUG", default=True)
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default=["127.0.0.1", "localhost"])
 
 
 # Application definition
@@ -82,11 +98,11 @@ WSGI_APPLICATION = "config.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+DEFAULT_DATABASE_URL = f"sqlite:///{BASE_DIR / 'melon-20231204.sqlite3'}"
+# env.db("DATABASE_URL", default=DEFAULT_DATABASE_URL)
+
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "melon-20231204.sqlite3",
-    }
+    "default": env.db("DATABASE_URL", default=DEFAULT_DATABASE_URL),
 }
 
 
@@ -112,7 +128,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
-LANGUAGE_CODE = "en-us"
+LANGUAGE_CODE = env.str("LANGUAGE_CODE", default="en-us")
 
 TIME_ZONE = "UTC"
 
@@ -146,12 +162,22 @@ REST_FRAMEWORK = {
 }
 
 # django-cors-headers
-CORS_ALLOWED_ORIGINS = [
-    "http://127.0.0.1:3000",
-    "http://localhost:3000",
-    "http://127.0.0.1:3001",
-    "http://localhost:3001",
-]
+CORS_ALLOWED_ORIGINS = env.list(
+    "CORS_ALLOWED_ORIGINS",
+    default=[
+        "http://127.0.0.1:3000",
+        "http://localhost:3000",
+    ],
+)
 
 # credentials 설정 허용
-CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOW_CREDENTIALS = env.bool("CORS_ALLOW_CREDENTIALS", default=False)
+
+
+LOGIN_AND_LOGOUT_SUCCESS_URL_ALLOWED_HOSTS = env.list(
+    "LOGIN_AND_LOGOUT_SUCCESS_URL_ALLOWED_HOSTS",
+    default=[
+        "localhost:3000",
+        "127.0.0.1:3000",
+    ],
+)

@@ -9,3 +9,5 @@ openpyxl
 wordcloud
 
 django-cors-headers
+
+django-environ

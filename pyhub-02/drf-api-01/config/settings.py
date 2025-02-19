@@ -181,3 +181,7 @@ LOGIN_AND_LOGOUT_SUCCESS_URL_ALLOWED_HOSTS = env.list(
         "127.0.0.1:3000",
     ],
 )
+
+# 지정 도메인에서 서브도메인 포함하여 세션 쿠키 공유토록 허용
+#   mytravel.com  api.mytravel.com
+SESSION_COOKIE_DOMAIN = env.str("SESSION_COOKIE_DOMAIN", default=None) or None

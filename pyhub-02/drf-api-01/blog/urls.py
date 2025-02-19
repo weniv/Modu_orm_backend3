@@ -1,4 +1,6 @@
 from django.urls import path, include
+from django.views.generic import TemplateView
+
 from . import api
 from . import views
 
@@ -10,6 +12,11 @@ urlpatterns = [
     path("new/", views.post_new, name="post_new"),
     path("<int:pk>/edit/", views.post_edit, name="post_edit"),
     path("<int:pk>/delete/", views.post_delete, name="post_delete"),
+]
+
+urlpatterns += [
+    path("test/", TemplateView.as_view(template_name="blog/test.html"), name="index"),
+    path("whoami/", views.whoami, name="whoami"),
 ]
 
 urlpatterns_api_v1 = [

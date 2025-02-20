@@ -5,8 +5,8 @@
 {% block content %}
     <h2>태그 목록</h2>
 
-    <button hx-get="{% url 'blog:tag_list' %}?partial"
-            hx-trigger="click"
+    <button hx-get="{% url 'blog:tag_list' %}"
+            hx-trigger="load, click"
             hx-target="#tag-list-container">
         새로고침
     </button>

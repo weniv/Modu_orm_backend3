@@ -7,6 +7,7 @@ from rest_framework.generics import (
     DestroyAPIView,
     ListAPIView,
 )
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.request import Request
 from rest_framework.response import Response
 
@@ -25,6 +26,21 @@ from diary.serializers import PostSerializer, CommentSerializer
 
 class PostCreateAPIView(CreateAPIView):
     serializer_class = PostSerializer
+    # API 별로 권한 설정
+    # permission_classes = [
+    #     # AllowAny,
+    #     IsAuthenticated,
+    # ]
+
+    def perform_create(self, serializer):
+        # commit인자는 ModelForm만 지원할 뿐
+        # ModelSeralizer에서는 지원하지 않아요.
+        # serializer.save(commit=False)  # XXX
+
+        serializer.save(
+            user=self.request.user,
+            # ip=...,
+        )
 
 
 post_new = PostCreateAPIView.as_view()

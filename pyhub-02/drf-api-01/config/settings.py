@@ -148,8 +148,11 @@ STATIC_URL = "static/"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 
-# django-rest-framework
+# django-rest-framework : 프로젝트 전역 설정
 REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework.authentication.SessionAuthentication",
+    ],
     # https://www.django-rest-framework.org/api-guide/renderers/
     "DEFAULT_RENDERER_CLASSES": [
         # 디폴트
@@ -158,7 +161,7 @@ REST_FRAMEWORK = {
         # 추가
         "blog.renderers.PandasXlsxRenderer",
         "blog.renderers.WordcloudRenderer",
-    ]
+    ],
 }
 
 # django-cors-headers

@@ -14,6 +14,7 @@ urlpatterns = [
 ]
 
 urlpatterns_api_v1 = [
+    path("posts/", api.post_list, name="post-list"),
     path("posts/new/", api.post_new, name="post-new"),
     path("posts/<int:pk>/edit/", api.post_edit, name="post-edit"),
     path("posts/<int:pk>/delete/", api.post_delete, name="post-delete"),

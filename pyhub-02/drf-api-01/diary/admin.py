@@ -4,7 +4,8 @@ from .models import Post, Comment
 
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
-    pass
+    list_display = ["user", "status", "created_at", "updated_at"]
+    list_filter = ["status"]
 
 
 # admin.site.register(Post, PostAdmin)

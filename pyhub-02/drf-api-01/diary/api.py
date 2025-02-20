@@ -12,7 +12,7 @@ from rest_framework.request import Request
 from rest_framework.response import Response
 
 from diary.models import Post, Comment
-from diary.serializers import PostSerializer, CommentSerializer
+from diary.serializers import PostSerializer, CommentSerializer, PostListSerializer
 
 
 # @api_view(["POST"])
@@ -22,6 +22,15 @@ from diary.serializers import PostSerializer, CommentSerializer
 #         post = serializer.save()
 #         return Response(serializer.data)
 #     return Response(serializer.errors)
+
+
+class PostListAPIView(ListAPIView):
+    queryset = PostListSerializer.get_optimized_queryset()
+    serializer_class = PostListSerializer
+    permission_classes = [AllowAny]
+
+
+post_list = PostListAPIView.as_view()
 
 
 class PostCreateAPIView(CreateAPIView):

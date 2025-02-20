@@ -1,6 +1,9 @@
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy, reverse
+from django.utils.decorators import method_decorator
 from django.views.generic import ListView, DetailView, CreateView
 
 from diary.forms import PostForm, CommentForm
@@ -30,13 +33,18 @@ post_detail = DetailView.as_view(model=Post)
 # )
 
 
+@login_required
 def post_new(request):
     if request.method == "POST":
         # form = PostForm(request.POST, request.FILES)
         form = PostForm(data=request.POST, files=request.FILES)
         if form.is_valid():
             # form.cleaned_data
-            post = form.save()
+            post = form.save(commit=False)  # instance.save() 호출을 지연
+            # 인증된 상황 : User 모델의 인스턴스
+            # 미인증된 상황 : AnonymousUser 파이썬 클래스 인스턴스
+            post.user = request.user
+            post.save()
             return redirect("diary:post-detail", post.pk)
     else:
         form = PostForm()
@@ -102,7 +110,8 @@ class CommentListView(ListView):
 comment_list = CommentListView.as_view()
 
 
-class CommentCreateView(CreateView):
+# @method_decorator(login_required, name="dispatch")
+class CommentCreateView(LoginRequiredMixin, CreateView):
     model = Comment
     form_class = CommentForm
     template_name = "diary/form.html"
@@ -121,6 +130,7 @@ class CommentCreateView(CreateView):
 
         # form 인스턴스 내부에 .instance 속성이 있습니다.
         comment = form.save(commit=False)  # instance.save() 호출없이 instance 반환
+        comment.user = self.request.user
         comment.post = post
         return super().form_valid(form)
 

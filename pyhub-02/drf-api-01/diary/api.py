@@ -10,6 +10,7 @@ from rest_framework.generics import (
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.request import Request
 from rest_framework.response import Response
+from rest_framework.viewsets import ModelViewSet
 
 from diary.models import Post, Comment
 from diary.serializers import PostSerializer, CommentSerializer, PostListSerializer
@@ -24,67 +25,39 @@ from diary.serializers import PostSerializer, CommentSerializer, PostListSeriali
 #     return Response(serializer.errors)
 
 
-class PostListAPIView(ListAPIView):
-    queryset = PostListSerializer.get_optimized_queryset()
-    serializer_class = PostListSerializer
-    permission_classes = [AllowAny]
-
-
-post_list = PostListAPIView.as_view()
-
-
-class PostCreateAPIView(CreateAPIView):
+class PostViewSet(ModelViewSet):
+    queryset = Post.objects.exclude(status=Post.Status.DELETED)  # 범위
     serializer_class = PostSerializer
-    # API 별로 권한 설정
-    # permission_classes = [
-    #     # AllowAny,
-    #     IsAuthenticated,
-    # ]
+
+    permission_classes_map = {
+        "list": [AllowAny],
+        "retrieve": [AllowAny],
+    }
+    serializer_class_map = {
+        "list": PostListSerializer,
+    }
+
+    def get_permissions(self):
+        try:
+            classes = self.permission_classes_map[self.action]
+            return [cls() for cls in classes]
+        except KeyError:
+            return super().get_permissions()
+
+    def get_serializer_class(self):
+        try:
+            return self.serializer_class_map[self.action]
+        except KeyError:
+            return super().get_serializer_class()
 
     def perform_create(self, serializer):
-        # commit인자는 ModelForm만 지원할 뿐
-        # ModelSeralizer에서는 지원하지 않아요.
-        # serializer.save(commit=False)  # XXX
+        serializer.save(user=self.request.user)
 
-        serializer.save(
-            user=self.request.user,
-            # ip=...,
-        )
-
-
-post_new = PostCreateAPIView.as_view()
-
-# @api_view(["PUT"])
-# def post_edit(request: Request, pk) -> Response:
-#     post = get_object_or_404(Post, pk=pk)
-#
-#     serializer = PostSerializer(data=request.data, instance=post)
-#     if serializer.is_valid():
-#         post = serializer.save()
-#         return Response(serializer.data)
-#     return Response(serializer.errors)
-
-
-class PostUpdateAPIView(UpdateAPIView):
-    queryset = Post.objects.exclude(status=Post.Status.DELETED)  # 범위
-    serializer_class = PostSerializer
-
-
-post_edit = PostUpdateAPIView.as_view()
-
-
-class PostDestroyAPIView(DestroyAPIView):
-    queryset = Post.objects.exclude(status=Post.Status.DELETED)  # 범위
-
-    # Soft Delete
     def perform_destroy(self, instance: Post):
         # instance.content = ""
         # instance.status = Post.Status.DELETED
         # instance.save()  # 모든 필드 값을 데이터베이스에 UPDATE 시도
         instance.soft_delete()
-
-
-post_delete = PostDestroyAPIView.as_view()
 
 
 # def comment_list(request, post_pk):

@@ -10,8 +10,9 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
-from environ import Env
 from pathlib import Path
+
+from environ import Env
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -179,6 +180,11 @@ REST_FRAMEWORK = {
         "blog.renderers.WordcloudRenderer",
     ],
 }
+
+if DEBUG:
+    REST_FRAMEWORK["DEFAULT_AUTHENTICATION_CLASSES"] += [
+        "rest_framework.authentication.BasicAuthentication",
+    ]
 
 # django-cors-headers
 CORS_ALLOWED_ORIGINS = env.list(

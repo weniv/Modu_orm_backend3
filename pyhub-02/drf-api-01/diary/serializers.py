@@ -37,6 +37,10 @@ class PostListSerializer(serializers.ModelSerializer):
 
 
 class PostSerializer(serializers.ModelSerializer):
+    @classmethod
+    def get_optimized_queryset(cls):
+        return Post.objects.exclude(status=Post.Status.DELETED)  # 범위
+
     class Meta:
         model = Post
         fields = ["pk", "content", "photo", "status", "created_at", "updated_at"]

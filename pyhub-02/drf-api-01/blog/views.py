@@ -1,11 +1,11 @@
 # blog/views.py
-
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpRequest
 from django.shortcuts import render, get_object_or_404, redirect
 
-from .forms import PostForm
-from .models import Post
+from .forms import PostForm, TagForm
+from .models import Post, Tag
 from .generics import View, APIView
 
 
@@ -106,5 +106,42 @@ def post_delete(request: HttpRequest, pk: int) -> HttpResponse:
         template_name="blog/post_confirm_delete.html",
         context={
             "post": post,
+        },
+    )
+
+
+def tag_list(request):
+    tag_qs = Tag.objects.all()
+
+    query = request.GET.get("query", "")
+    if query:
+        tag_qs = tag_qs.filter(name__icontains=query)
+
+    return render(
+        request,
+        "blog/tag_list.html",
+        {
+            "tag_list": tag_qs,
+        },
+    )
+
+
+def tag_new(request):
+    if request.method == "GET":
+        form = TagForm()
+    else:
+        form = TagForm(data=request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "태그를 저장했습니다.")
+            return redirect("blog:tag_list")
+
+    template_name = "blog/tag_form.html"
+
+    return render(
+        request,
+        template_name,
+        {
+            "form": form,
         },
     )

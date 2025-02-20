@@ -1,19 +1,19 @@
-{# blog/templates/blog/base.html  #}
+{% load django_bootstrap5 %}
 
 <!doctype html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8" />
-    <title>블로그</title>
+    <title>{% block title %}{% endblock %}</title>
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+    <script src="https://unpkg.com/htmx.org@1.9.10/dist/htmx.min.js"></script>
 </head>
 <body>
-
-    <h1>블로그</h1>
-
-    {% block content %}{% endblock %}
-
-    <hr />
-    &copy; 파이썬 사랑방.
-
+    <main style="width: 400px; margin: 1em;">
+        {% bootstrap_messages %}
+        {% block content %}{% endblock %}
+    </main>
+    {% block extra-script %}{% endblock %}
 </body>
 </html>

@@ -3,10 +3,16 @@
 #  - list/detail 뷰에서는 템플릿을 통해 HTML로 변환
 
 from django import forms
-from .models import Post
+from .models import Post, Tag
 
 
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
         fields = ["title", "content"]
+
+
+class TagForm(forms.ModelForm):
+    class Meta:
+        model = Tag
+        fields = ["name"]

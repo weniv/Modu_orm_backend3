@@ -20,3 +20,7 @@ django-bootstrap5
 django-htmx
 
 channels[daphne]
+
+openai
+
+django-cotton

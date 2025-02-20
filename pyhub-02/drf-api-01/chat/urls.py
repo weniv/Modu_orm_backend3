@@ -1,6 +1,15 @@
-from melon.urls import urlpatterns
-
 from django.urls import path
 from . import views
 
-urlpatterns = []
+app_name = "chat"
+
+urlpatterns = [
+    path("", views.index, name="index"),
+    path("chat/llm/", views.ChatLLMView.as_view(), name="chat-llm"),
+    path(
+        "chat/english-tutor/",
+        views.EnglishTutorChatLLMView.as_view(),
+        name="chat-english-tutor",
+    ),
+    path("chat/multi/", views.MultiUserChatView.as_view(), name="chat-multi"),
+]

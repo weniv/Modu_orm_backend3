@@ -16,6 +16,7 @@
 
 {% if page_obj.has_next %}
     <a hx-get="?page={{ page_obj.next_page_number }}"
+       hx-vals="js:{_:new Date().getTime()}"
        {# hx-target="this" #}
        hx-swap="outerHTML"
        class="btn btn-primary">

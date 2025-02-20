@@ -3,6 +3,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpRequest
 from django.shortcuts import render, get_object_or_404, redirect
+from django.views.generic import ListView
 
 from .forms import PostForm, TagForm
 from .models import Post, Tag
@@ -110,27 +111,50 @@ def post_delete(request: HttpRequest, pk: int) -> HttpResponse:
     )
 
 
-def tag_list(request):
-    tag_qs = Tag.objects.all()
+# def tag_list(request):
+#     tag_qs = Tag.objects.all()
+#
+#     query = request.GET.get("query", "")
+#     if query:
+#         tag_qs = tag_qs.filter(name__icontains=query)
+#
+#     # is_htmx: bool = request.META.get("HTTP_HX_REQUEST") == "true"
+#     if request.htmx:
+#         # if "partial" in request.GET:
+#         template_name = "blog/_tag_list.html"  # 레이아웃 없이 컨텐츠 만 !
+#     else:
+#         template_name = "blog/tag_list.html"  # 레이아웃 포함, 컨텐츠 없음.
+#
+#     return render(
+#         request,
+#         template_name,
+#         {
+#             "tag_list": tag_qs,
+#         },
+#     )
 
-    query = request.GET.get("query", "")
-    if query:
-        tag_qs = tag_qs.filter(name__icontains=query)
 
-    # is_htmx: bool = request.META.get("HTTP_HX_REQUEST") == "true"
-    if request.htmx:
-        # if "partial" in request.GET:
-        template_name = "blog/_tag_list.html"  # 레이아웃 없이 컨텐츠 만 !
-    else:
-        template_name = "blog/tag_list.html"  # 레이아웃 포함, 컨텐츠 없음.
+class TagListView(ListView):
+    model = Tag
+    queryset = Tag.objects.all()
+    # template_name = "blog/tag_list.html"  # 고정
 
-    return render(
-        request,
-        template_name,
-        {
-            "tag_list": tag_qs,
-        },
-    )
+    def get_queryset(self):
+        qs = super().get_queryset()
+
+        query = self.request.GET.get("query", "")
+        if query:
+            qs = qs.filter(name__icontains=query)
+
+        return qs
+
+    def get_template_names(self):
+        if self.request.htmx:
+            return ["blog/_tag_list.html"]
+        return super().get_template_names()
+
+
+tag_list = TagListView.as_view()
 
 
 def tag_new(request):

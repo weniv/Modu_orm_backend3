@@ -14,6 +14,7 @@ urlpatterns = [
     path("<int:pk>/delete/", views.post_delete, name="post_delete"),
     path("tags/", views.tag_list, name="tag_list"),
     path("tags/new/", views.tag_new, name="tag_new"),
+    path("tags/<int:pk>/delete/", views.tag_delete, name="tag_delete"),
 ]
 
 urlpatterns += [

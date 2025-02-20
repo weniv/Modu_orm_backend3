@@ -3,6 +3,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpRequest
 from django.shortcuts import render, get_object_or_404, redirect
+from django.views.decorators.http import require_POST
 from django.views.generic import ListView
 
 from .forms import PostForm, TagForm
@@ -177,3 +178,15 @@ def tag_new(request):
             "form": form,
         },
     )
+
+
+@require_POST
+def tag_delete(request, pk):
+    # 어차피 삭제하고 Tag 인스턴스를 사용하지 않는 상황 => 굳이 Instance를 만들 필요가 없는 상황
+    # get_object_or_404(Tag, pk=pk).delete()
+
+    # Tag 인스턴스를 만들지 않고, 데이터베이스에 삭제 쿼리만 수행
+    Tag.objects.filter(pk=pk).delete()
+
+    # hx-swap="delete"에 의해 요소가 삭제될 것이기에 빈 응답을 합니다.
+    return HttpResponse("")

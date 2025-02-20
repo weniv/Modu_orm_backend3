@@ -7,7 +7,10 @@
 </div>
 
 {% if page_obj.has_next %}
-    <a href="?page={{ page_obj.next_page_number }}">
+    <a hx-get="?page={{ page_obj.next_page_number }}"
+       {# hx-target="this" #}
+       hx-swap="outerHTML"
+       class="btn btn-primary">
         다음 페이지
     </a>
 {% endif %}

@@ -5,3 +5,9 @@
     {% endfor %}
 
 </div>
+
+{% if page_obj.has_next %}
+    <a href="?page={{ page_obj.next_page_number }}">
+        다음 페이지
+    </a>
+{% endif %}

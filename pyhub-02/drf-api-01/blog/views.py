@@ -138,6 +138,7 @@ class TagListView(ListView):
     model = Tag
     queryset = Tag.objects.all()
     # template_name = "blog/tag_list.html"  # 고정
+    paginate_by = 10  # ADDED
 
     def get_queryset(self):
         qs = super().get_queryset()

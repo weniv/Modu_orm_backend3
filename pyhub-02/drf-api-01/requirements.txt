@@ -11,3 +11,5 @@ wordcloud
 django-cors-headers
 
 django-environ
+
+django-debug-toolbar

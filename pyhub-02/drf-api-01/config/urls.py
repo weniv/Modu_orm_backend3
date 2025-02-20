@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.apps import apps
 from django.urls import include, path
 
 urlpatterns = [
@@ -10,3 +11,8 @@ urlpatterns = [
     path("diary/", include("diary.urls")),
     path("api-auth/", include("rest_framework.urls")),
 ]
+
+if apps.is_installed("debug_toolbar"):
+    urlpatterns += [
+        path("__debug__/", include("debug_toolbar.urls")),
+    ]

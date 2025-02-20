@@ -117,9 +117,14 @@ def tag_list(request):
     if query:
         tag_qs = tag_qs.filter(name__icontains=query)
 
+    if "partial" in request.GET:
+        template_name = "blog/_tag_list.html"  # 레이아웃 없이 컨텐츠 만 !
+    else:
+        template_name = "blog/tag_list.html"  # 레이아웃 포함, 컨텐츠 없음.
+
     return render(
         request,
-        "blog/tag_list.html",
+        template_name,
         {
             "tag_list": tag_qs,
         },

@@ -15,3 +15,6 @@ django-environ
 django-debug-toolbar
 
 django-bootstrap5
+
+# https://django-htmx.readthedocs.io/en/latest/installation.html
+django-htmx

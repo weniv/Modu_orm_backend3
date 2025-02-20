@@ -117,8 +117,8 @@ def tag_list(request):
     if query:
         tag_qs = tag_qs.filter(name__icontains=query)
 
-    is_htmx: bool = request.META.get("HTTP_HX_REQUEST") == "true"
-    if is_htmx:
+    # is_htmx: bool = request.META.get("HTTP_HX_REQUEST") == "true"
+    if request.htmx:
         # if "partial" in request.GET:
         template_name = "blog/_tag_list.html"  # 레이아웃 없이 컨텐츠 만 !
     else:

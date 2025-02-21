@@ -175,13 +175,16 @@ class ChatLLMConsumer(AsyncJsonWebsocketConsumer):
                 file_field_name = re.sub(rf"{field_name_postfix}$", "", field_name)
                 file_list: List[File] = []
                 for base64_str in request_dict[field_name].split("||"):
-                    # header 포맷 : data:image/png;base64,...
-                    header, data = base64_str.split(",", 1)
-                    matched = re.search(r"data:([^;]+);base64", header)
-                    if matched and "image/" in matched.group(1):
-                        extension: str = matched.group(1).split("/", 1)[-1]
-                        file_name = f"{file_field_name}.{extension}"
-                        file_list.append(ContentFile(b64decode(data), name=file_name))
+                    if base64_str:
+                        # header 포맷 : data:image/png;base64,...
+                        header, data = base64_str.split(",", 1)
+                        matched = re.search(r"data:([^;]+);base64", header)
+                        if matched and "image/" in matched.group(1):
+                            extension: str = matched.group(1).split("/", 1)[-1]
+                            file_name = f"{file_field_name}.{extension}"
+                            file_list.append(
+                                ContentFile(b64decode(data), name=file_name)
+                            )
 
                 if file_list:
                     files.setlist(file_field_name, file_list)

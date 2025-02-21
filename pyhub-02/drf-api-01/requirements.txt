@@ -22,3 +22,5 @@ django-htmx
 pytest
 pytest-django
 pytest-testdox
+
+factory-boy

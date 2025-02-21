@@ -12,6 +12,7 @@ class PostFactory(factory.django.DjangoModelFactory):
 
     user = factory.SubFactory(UserFactory)
     content = factory.Faker("paragraphs", nb=3)
+    status = "published"
 
 
 class CommentFactory(factory.django.DjangoModelFactory):

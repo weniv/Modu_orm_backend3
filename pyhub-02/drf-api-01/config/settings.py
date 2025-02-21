@@ -163,6 +163,7 @@ if DEBUG:
 # django-rest-framework : 프로젝트 전역 설정
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [
+        # "rest_framework.authentication.BasicAuthentication",
         "rest_framework.authentication.SessionAuthentication",
     ],
     "DEFAULT_PERMISSION_CLASSES": [
@@ -179,6 +180,12 @@ REST_FRAMEWORK = {
         "blog.renderers.WordcloudRenderer",
     ],
 }
+
+# 개발 모드에서만 Basic 인증을 활성화 => http client 툴에서 인증을 활용하실 수 있어요.
+if DEBUG:
+    REST_FRAMEWORK["DEFAULT_AUTHENTICATION_CLASSES"] += [
+        "rest_framework.authentication.BasicAuthentication",
+    ]
 
 # django-cors-headers
 CORS_ALLOWED_ORIGINS = env.list(

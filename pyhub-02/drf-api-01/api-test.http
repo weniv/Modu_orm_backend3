@@ -1,21 +1,33 @@
 @BASE_URL = http://localhost:8000
 
-### 댓글 목록 조회
+### diary 포스팅 목록 조회
 
-GET {{BASE_URL}}/diary/api/v1/posts/1/comments/
+GET {{BASE_URL}}/diary/api/v1/posts/
 
 
-### 포스팅 생성 요청 (without Photo)
+### diary 특정 포스팅 조회
+# "아이디:암호" 포맷의 문자열을 base64 인코딩한 문자열
+# import base64
+# base64.b64encode("user1:1234".encode("utf-8")).decode("utf-8")
+# 서버에서 Basic 인증이 활성화되어있어야 합니다.
 
-POST {{BASE_URL}}/diary/api/v1/posts/new/
+GET {{BASE_URL}}/diary/api/v1/posts/17/
+Authorization: Basic dXNlcjE6MTIzNA==
+
+
+### diary 포스팅 생성 요청 (without Photo)
+
+POST {{BASE_URL}}/diary/api/v1/posts/
 Content-Type: application/x-www-form-urlencoded
+Authorization: Basic dXNlcjE6MTIzNA==
 
 content=hello
 
 
 ### 포스팅 생성 요청 (with photo)
 
-POST {{BASE_URL}}/diary/api/v1/posts/new/
+POST {{BASE_URL}}/diary/api/v1/posts/
+Authorization: Basic dXNlcjE6MTIzNA==
 Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
 
 ------WebKitFormBoundary7MA4YWxkTrZu0gW
@@ -30,10 +42,12 @@ Content-Type: image/png
 ------WebKitFormBoundary7MA4YWxkTrZu0gW--
 
 
-
 ### 포스팅 수정 요청 (without Photo)
+# PUT : Serializer의 모든 필드 값을 매번 제공
+# PATCH : 업데이트할 필드만 일부 제공해도 OK.
 
-PUT {{BASE_URL}}/diary/api/v1/posts/1/edit/
+PATCH {{BASE_URL}}/diary/api/v1/posts/17/
+Authorization: Basic dXNlcjE6MTIzNA==
 Content-Type: application/x-www-form-urlencoded
 
 content=modified content
@@ -41,5 +55,10 @@ content=modified content
 
 ### 포스팅 삭제 요청
 
-DELETE {{BASE_URL}}/diary/api/v1/posts/1/delete/
-Content-Type: application/x-www-form-urlencoded
+DELETE {{BASE_URL}}/diary/api/v1/posts/17/
+Authorization: Basic dXNlcjE6MTIzNA==
+
+
+### 댓글 목록 조회
+
+GET {{BASE_URL}}/diary/api/v1/posts/1/comments/

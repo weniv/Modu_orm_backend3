@@ -27,36 +27,61 @@ from diary.serializers import PostSerializer, CommentSerializer, PostListSeriali
 #     return Response(serializer.errors)
 
 
-# 기본 5개의 API Endpoint 생성 + 물론 추가 Endpoint 도 가능 !!!
-class PostViewSet(ModelViewSet):
-    queryset = Post.objects.all()
-    serializer_class = PostSerializer
-
-    # permission_classes = [AllowAny]  # 5개 API에 모두 적용
+class MapModelViewSet(ModelViewSet):
+    permission_classes_map = {}
+    serializer_class_map = {}
+    queryset_map = {}
 
     def get_permissions(self):
-        if self.action == "list":
-            return [AllowAny()]
-        return super().get_permissions()
-
-    def get_queryset(self):
-        if self.action == "list":  # GET
-            return PostListSerializer.get_optimized_queryset()
-        elif self.action == "retrieve":
-            return Post.objects.exclude(status=Post.Status.DELETED)  # 범위
-        elif self.action in ("update", "partial_update"):  # PUT or PATCH
-            return Post.objects.exclude(status=Post.Status.DELETED)  # 범위
-        elif self.action == "destroy":
-            return Post.objects.exclude(status=Post.Status.DELETED)  # 범위
-        return super().get_queryset()
+        try:
+            classes = self.permission_classes_map[self.action]
+            return [cls() for cls in classes]
+        except KeyError:
+            return super().get_permissions()
 
     def get_serializer_class(self):
         # self.request.method  # "GET"
         # self.action  # "list", "retrieve", "create", "update", "partial_update", "destroy"
+        try:
+            return self.serializer_class_map[self.action]
+        except KeyError:
+            return super().get_serializer_class()
 
-        if self.action == "list":
-            return PostListSerializer
-        return super().get_serializer_class()
+    def get_queryset(self):
+        try:
+            # queryset_map 에 정의된 쿼리셋이 있다면 활용합니다.
+            return self.queryset_map[self.action]
+        except KeyError:
+            # queryset_map에 정의된 쿼리셋이 없고, 시리얼라이저 클래스에 get_optimized_queryset 속성이 있다면
+            # 이를 호출하여 쿼리셋을 반환합니다.
+            serializer_class = self.get_serializer_class()
+            if hasattr(serializer_class, "get_optimized_queryset"):
+                return serializer_class.get_optimized_queryset()
+
+            # 클래스 변수에 지정된 쿼리셋을 반환합니다.
+            return super().get_queryset()
+
+
+# 기본 5개의 API Endpoint 생성 + 물론 추가 Endpoint 도 가능 !!!
+class PostViewSet(MapModelViewSet):
+    queryset = Post.objects.exclude(status=Post.Status.DELETED)
+    serializer_class = PostSerializer
+
+    permission_classes_map = {
+        "list": [AllowAny],
+    }
+    serializer_class_map = {
+        "list": PostListSerializer,
+    }
+    queryset_map = {
+        # "list": PostListSerializer.get_optimized_queryset(),
+        # "retrieve": Post.objects.exclude(status=Post.Status.DELETED),
+        # "update": Post.objects.exclude(status=Post.Status.DELETED),
+        # "partial_update": Post.objects.exclude(status=Post.Status.DELETED),
+        # "destroy": Post.objects.exclude(status=Post.Status.DELETED),
+    }
+
+    # permission_classes = [AllowAny]  # 5개 API에 모두 적용
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)

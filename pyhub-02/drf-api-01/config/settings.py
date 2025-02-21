@@ -60,6 +60,7 @@ INSTALLED_APPS = [
     "rest_framework",
     "accounts",
     "blog",
+    "chat",
     "melon",
     "health",
     "diary",

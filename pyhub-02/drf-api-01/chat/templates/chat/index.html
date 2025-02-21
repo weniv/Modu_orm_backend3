@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8" />
+    <title></title>
+    <script src="https://unpkg.com/htmx.org@1.9.10/dist/htmx.min.js"></script>
+</head>
+<body hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
+
+<div id="chat-messages"></div>
+
+<form hx-post="/chat/message/" hx-target="#chat-messages">
+    {% csrf_token %}
+    {{ form.as_table }}
+    <input type="submit" />
+</form>
+
+</body>
+</html>
